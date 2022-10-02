@@ -1,5 +1,5 @@
 import "./Student.css";
-import foto from "../../images/student.jpg"
+import foto from "../../images/stas.jpeg"
 
 function Student() {
   return (

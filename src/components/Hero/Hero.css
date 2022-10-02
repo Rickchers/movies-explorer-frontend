@@ -1,7 +1,7 @@
 .hero {
   padding: 160px 0 0;
   width: calc(100% + 60px);
-  
+  margin-top: 20px;
   min-height: 493px;
   background-color: #272727;
   border-radius: 10px;
@@ -20,4 +20,28 @@
   font-weight: 400;
   text-align: center;
   margin: 0 auto;
+}
+
+.hero__navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+  margin: auto 0 30px;
+}
+
+.hero__navigation-item {
+  all: unset;
+  width: 96px;
+  height: 36px;
+  background-color: #303030;
+  border-radius: 10px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-style: normal;
+  font-weight: 500;
+  text-align: center;
+  margin-right: 10px;
 }
