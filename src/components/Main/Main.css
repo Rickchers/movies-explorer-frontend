@@ -1,9 +1,3 @@
 .main {
-  max-width: 1140px;
-  min-width: 320px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+
 }
