@@ -3,7 +3,7 @@ import "./Tech.css"
 function Tech() {
   return (
     <section className="tech">
-      <div className="tech__wrapper">
+      
         <h2 className="tech__title">Технологии</h2>
         <h3 className="list__heading">7 технологий</h3>
         <p className="list__subheading">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
@@ -30,7 +30,7 @@ function Tech() {
             <p className="list__text">MongoDB</p>
           </li>
         </ul>
-      </div>
+      
     </section>
   )
 }

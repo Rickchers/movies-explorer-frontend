@@ -20,7 +20,7 @@ function Portfolio() {
           </li>
           <li className="portfolio__list-row">
             <a
-              href="https://github.com/Rickchers/how-to-learn"
+              href="https://github.com/Rickchers/russian-travel"
               className="portfolio__link"
               target="_blank"
               rel="noreferrer"
@@ -31,7 +31,7 @@ function Portfolio() {
           </li>
           <li className="portfolio__list-row">
             <a
-              href="https://github.com/Rickchers/how-to-learn"
+              href="https://github.com/Rickchers/react-mesto-api-full"
               className="portfolio__link"
               target="_blank"
               rel="noreferrer"

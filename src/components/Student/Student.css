@@ -1,17 +1,17 @@
 .student {
   background-color: #202020;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
   width: 100%;
 }
 
 .student__wrapper {
   width: 100%;
+  box-sizing: border-box;
   padding: 100px 70px;
 }
 
 .student__title {
+  width: 100%;
   margin: 0;
   font-style: normal;
   font-weight: 400;
@@ -76,4 +76,31 @@
   border-radius: 10px;
   width: 270px;
   height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .student__wrapper {
+    padding: 100px 50px;
+  }
+
+  .student__about-text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .studetn__foto {
+    width: 255px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .student__wrapper {
+    padding: 100px 14px;
+  }
+
+  .student__about-wrapper{
+    flex-direction: column-reverse;
+  }
+  .studetn__foto {
+    max-width: 292px;
+  }
 }

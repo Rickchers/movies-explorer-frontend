@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: space-between;
   margin: 18px auto;
+  box-sizing: border-box;
 }
 
 .header__logo {
@@ -13,16 +14,25 @@
 }
 
 .header__item-one {
+  text-decoration: none;
   margin-left: auto;
   margin-right: 30px;
   font-size: 12px;
   line-height: 16px;
   font-style: normal;
   font-weight: 500;
+  color: #FFFFFF;
 }
 
-.header__button {
-  all: unset;
+.header__item-one_hidden {
+  display: none;
+}
+
+.header__button-signin {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 76px;
   height: 32px;
   border-radius: 3px;
@@ -33,5 +43,15 @@
   font-style: normal;
   font-weight: 500;
   color: #000000;
+}
+
+.header__button-signin_hidden {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 0 30px;
+  }
 
 }

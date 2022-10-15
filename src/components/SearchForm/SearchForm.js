@@ -1,4 +1,5 @@
 import "./SearchForm.css";
+import tumb from "../../images/tumb.svg";
 
 function SearchForm() {
   return (
@@ -17,6 +18,16 @@ function SearchForm() {
         Поиск          
       </button>
     </form>
+    
+    <div className="search-form__shorts">
+      <img
+        className="search-form__shorts-tumb"
+        src={tumb}
+        alt=""
+      />
+      <p className="search-form__shorts-name">Короткометражки</p>
+
+    </div>
   </div>
   )
 }

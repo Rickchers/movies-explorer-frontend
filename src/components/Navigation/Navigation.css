@@ -1,0 +1,103 @@
+.nav__wrapper {
+  padding-left: 44px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nav__wrapper_siderbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  width: 520px;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  background-color: #202020;
+  padding-top: 159px;
+  box-sizing: border-box;
+}
+
+.nav__body {
+  width: 100%;
+}
+
+.nav__body_siderbar {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  content: "";
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+
+.nav__menu {
+  text-decoration: none;
+  margin-right: 16px;
+  font-size: 13px;
+  line-height: 18px;
+  font-style: normal;
+  font-weight: 500;
+  color:#FFFFFF;
+}
+
+.nav__menu_hided {
+  display: none;
+}
+
+.nav__accaunt-title {
+  display: flex;
+  align-items: center;
+  margin: 0 13px 0 auto;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 16px;
+  font-style: normal;
+  font-weight: 500;
+  color:#FFFFFF;
+}
+
+.nav__pie {
+  all: unset;
+  display: none;
+  margin-left: auto;
+
+}
+
+@media screen and (max-width: 768px) {
+  .nav__wrapper {
+    display: none;
+
+  }
+
+  .nav__accaunt-title {
+    margin: auto 0 99px;
+  }
+
+  .nav__accaunt-title > .nav__menu {
+    margin: 0 13px 0 0;
+  }
+
+  
+  .nav__menu {
+    margin-bottom: 28px;
+    margin-right: 0;
+  }
+
+  .nav__pie {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .nav__wrapper_siderbar {
+    width: 100%;
+  }
+}

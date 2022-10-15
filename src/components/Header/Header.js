@@ -1,19 +1,44 @@
 import "./Header.css";
 import logo from "../../images/header__logo.svg";
 
-function Header() {
+import Navigation from "../../components/Navigation/Navigation";
+
+import { useState } from "react";
+
+function Header({ isLoggedIn }) {
+  const [isSidebarOpened, setSidebarOpened] = useState(false);
+  
+  function handleOpenSideBar() {      
+    setSidebarOpened(true);
+  }
   return (
     <header className="header">
-      <img
-        className="header__logo"
-        src={logo}
-        alt="logo"
-      />
-      <p className="header__item-one">Регистрация</p>
-      <button
-        type="button"
-        className="header__button">Войти
-      </button>
+      
+      <a href="/">
+        <img
+          className="header__logo"
+          src={logo}
+          alt="logo"
+        />
+      </a>
+
+      {isLoggedIn && <Navigation 
+        isOpened={isSidebarOpened}
+        onClickPie={handleOpenSideBar}      
+      />}
+      
+      
+      <a
+        href="/signup"
+        className={`${isLoggedIn ? "header__item-one_hidden" : "header__item-one"}`}>
+        Регистрация
+      </a>
+      
+      <a
+        href="/signin"
+        className={`${isLoggedIn ? "header__button-signin_hidden" : "header__button-signin"}`}>
+        Войти
+      </a>
     </header> 
   )
 }

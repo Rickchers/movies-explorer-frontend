@@ -1,6 +1,6 @@
 .hero {
   padding: 160px 0 0;
-  width: calc(100% + 60px);
+  max-width: calc(100% + 60px);
   min-height: 493px;
   background-color: #272727;
   border-radius: 10px;
@@ -27,7 +27,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  width: 100%;
+  max-width: 100%;
   margin: auto 0 30px;
 }
 
