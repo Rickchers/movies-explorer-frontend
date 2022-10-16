@@ -1,13 +1,13 @@
 .student {
   background-color: #202020;
-
+  box-sizing: border-box;
   width: 100%;
 }
 
 .student__wrapper {
   width: 100%;
   box-sizing: border-box;
-  padding: 100px 70px;
+  padding: 114px 70px 0;
 }
 
 .student__title {
@@ -20,6 +20,7 @@
   text-align: left;
   padding-bottom: 23px;
   border-bottom: 1px solid #DADADA;
+  letter-spacing: -0.04em;
 }
 
 .student__about-wrapper{
@@ -75,20 +76,38 @@
 .studetn__foto {
   border-radius: 10px;
   width: 270px;
-  height: 100%;
+  height: 327px;
+  object-fit: cover;
+
 }
 
 @media screen and (max-width: 768px) {
   .student__wrapper {
-    padding: 100px 50px;
+    padding: 80px 50px;
+  }
+
+  .student__about-title {
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .student__about-subtitle {
+    font-size: 12px;
+    line-height: 18px;
   }
 
   .student__about-text {
     font-size: 12px;
     line-height: 18px;
   }
+
+  .student__about-content {
+    width: 366px;
+  }
+
   .studetn__foto {
     width: 255px;
+    height: 307px;
   }
 }
 
@@ -101,6 +120,44 @@
     flex-direction: column-reverse;
   }
   .studetn__foto {
-    max-width: 292px;
+    width: 292px;
+    
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .student__wrapper {
+    padding: 75px 14px 0;
+  }
+
+  .student__title {
+    padding-bottom: 25px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .student__about-title {
+    margin-top: 35px;
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .student__about-subtitle {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .student__about-text {
+    box-sizing: border-box;
+    display: block;
+    width: 320px;
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 40px;
+  }
+
+  .studetn__foto {
+    width: 100%;
+    height: 352px;
   }
 }

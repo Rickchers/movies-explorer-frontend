@@ -4,12 +4,16 @@ import image3 from "../../images/movies_pics2.png";
 
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
+import "./SavedMovies.css";
+
 
 const cards = [image1, image2, image3];
 
 function SavedMovies() {
   return (
-    <MoviesCardList cards={cards}/>
+    <div className="savedmovies__wrapper">
+      <MoviesCardList cards={cards}/>
+    </div>
   )
 }
 

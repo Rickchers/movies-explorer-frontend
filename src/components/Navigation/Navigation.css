@@ -38,6 +38,19 @@
   z-index: 1;
 }
 
+.nav__sidebar-close {
+  all: unset;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 30px;
+  right: 30px;
+}
+
+.nav__sidebar-close_hided {
+  display: none;
+}
+
 .nav__menu {
   text-decoration: none;
   margin-right: 16px;

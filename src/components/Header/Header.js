@@ -11,6 +11,11 @@ function Header({ isLoggedIn }) {
   function handleOpenSideBar() {      
     setSidebarOpened(true);
   }
+
+  function handleCloseSideBar() {
+    setSidebarOpened(false);
+  }
+
   return (
     <header className="header">
       
@@ -24,7 +29,8 @@ function Header({ isLoggedIn }) {
 
       {isLoggedIn && <Navigation 
         isOpened={isSidebarOpened}
-        onClickPie={handleOpenSideBar}      
+        onClickPie={handleOpenSideBar} 
+        onClickCross={handleCloseSideBar}     
       />}
       
       

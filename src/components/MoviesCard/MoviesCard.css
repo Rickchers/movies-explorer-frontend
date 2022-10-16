@@ -1,7 +1,7 @@
 .moviescard {
   position: relative;
-  width: 364px;
-  height: 271px;
+  width: 100%;
+  height: 100%;
   background-color: #222222;
   overflow: hidden;
   box-sizing: border-box;
@@ -47,4 +47,11 @@
   height: 30px;
   margin: 19px 14px 19px 0;
   background-image: url("../../images/moviescard__head-icon-active.svg");
+}
+
+@media screen and (max-width: 320px) {
+  .moviescard__image {
+    height: 168px;
+    object-fit: cover;
+  }
 }

@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 function Login() {
   return (
     <section className="login__wrapper">
-      <img
-        className="login__logo"
-        src={logo}
-        alt="logo"
-      />
+      <a href="/">
+        <img
+          className="login__logo"
+          src={logo}
+          alt="logo"
+        />
+      </a>
       <h3 className="login__title">Рады видеть!</h3>
       
       <form className="login__form">

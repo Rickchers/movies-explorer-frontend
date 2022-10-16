@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: space-between;
   margin: 18px auto;
+  padding: 0 70px;
   box-sizing: border-box;
 }
 
@@ -15,8 +16,7 @@
 
 .header__item-one {
   text-decoration: none;
-  margin-left: auto;
-  margin-right: 30px;
+  margin: 0 30px 0 auto;
   font-size: 12px;
   line-height: 16px;
   font-style: normal;
@@ -54,4 +54,27 @@
     padding: 0 30px;
   }
 
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    padding: 0 14px;
+    margin: 16px auto 28px;
+  }
+
+  .header__button-signin {
+    width: 54px;
+    height: 26px;
+  }
+
+  .header__item-one {
+    margin: 0 14px 0 auto;
+    font-size: 10px;
+    line-height: 16px;
+  }
+  
+  .header__button-signin {
+    font-size: 10px;
+    line-height: 16px;
+  }
 }

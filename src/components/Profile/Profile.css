@@ -2,6 +2,7 @@
   width: 410px;
   padding-top: 74px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .profile__title {
@@ -62,4 +63,15 @@
 .profile__edit_colored {
   color: #EE3465;
   margin-top: 16px;
+}
+
+@media screen and (max-width: 320px) {
+  .profile__wrapper {
+    width: 260px;
+  }
+
+  .profile__edit {
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

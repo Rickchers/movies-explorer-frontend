@@ -1,8 +1,8 @@
 .register__wrapper {
   width: 396px;
-  /* outline: 1px solid white; */
   padding-top: 70px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .register__title {
@@ -37,6 +37,10 @@
 .register__form {
   display: flex;
   flex-direction: column;
+}
+
+.register__form > .register__input:nth-last-of-type(1) {
+  color: #EE3465;
 }
 
 .register__input {
@@ -86,4 +90,15 @@
 
 .register__login-link_colored {
   color: #4285F4;
+}
+
+@media screen and (max-width: 320px) {
+  .register__wrapper {
+    width: 260px;
+    padding-top: 70px;
+  }
+
+  .register__title {
+    text-align: center;
+  }
 }

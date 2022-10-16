@@ -9,7 +9,7 @@ function Student() {
         <div className="student__about-wrapper">
           <div className="student__about-content">
             <h3 className="student__about-title">Кирилл</h3>
-            <p className="student__about-subtitle">Front-end разработчик</p>
+            <p className="student__about-subtitle">Front-end разработчик, 45 лет</p>
             <p className="student__about-text">
               Я родился во Владивостоке, живу в Москве. Окончил факультет филологии БГУ. Холост.
               На выходных люблю кататься на своем шоссейном велосипеде Cannondale Super Six Evo в

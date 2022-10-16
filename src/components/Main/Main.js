@@ -20,7 +20,7 @@ function Main() {
       <About />
       <Tech />
       <Student />
-      {/* <Portfolio />       */}
+      <Portfolio />      
       
 
     </main>

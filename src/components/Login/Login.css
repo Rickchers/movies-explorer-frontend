@@ -1,8 +1,8 @@
 .login__wrapper {
   width: 396px;
-  /* outline: 1px solid white; */
   padding-top: 70px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .login__title {
@@ -76,4 +76,15 @@
 
 .login__register-link_colored {
   color: #4285F4;
+}
+
+@media screen and (max-width: 320px) {
+  .login__wrapper {
+    width: 260px;
+    padding-top: 70px;
+  }
+
+  .login__title {
+    text-align: center;
+  }
 }

@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 function Register() {
   return (
     <section className="register__wrapper">
-      <img
-        className="register__logo"
-        src={logo}
-        alt="logo"
-      />
+      <a href="/">
+        <img
+          className="register__logo"
+          src={logo}
+          alt="logo"
+        />
+      </a>
       <h3 className="register__title">Добро пожаловать!</h3>
       
       <form className="register__form">

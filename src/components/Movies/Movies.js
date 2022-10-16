@@ -1,7 +1,5 @@
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import "./Movies.css";
-// import cross from "../../images/cross.svg";
-// import accaunt from "../../images/accaunt.svg";
 
 import image1 from "../../images/movies_pics0.png";
 import image2 from "../../images/movies_pics1.png";

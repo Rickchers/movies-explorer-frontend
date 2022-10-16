@@ -5,6 +5,7 @@
 .movies__button-wrapper {
   display: flex;
   align-items: center;
+  margin-bottom: 79px;
 }
 
 .movies__button-more {
@@ -12,11 +13,22 @@
   width: 320px;
   height: 36px;
   outline: 1px solid #424242;
-  margin: 50px auto 80px;
+  margin: 48px auto 80px;
   border-radius: 5px;
   text-align: center;
   font-size: 12px;
   line-height: 15px;
   font-style: normal;
   font-weight: 500;
+}
+
+@media screen and (max-width: 320px) {
+  .movies__button-wrapper {
+    padding: 0 40px;
+    margin-bottom: 0;
+  }
+  .movies__button-more {
+    width: 100%;
+    margin: 48px auto 66px;
+  }
 }
