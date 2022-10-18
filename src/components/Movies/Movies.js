@@ -29,14 +29,24 @@ const cards = [
   image12,
 ];
 
-function Movies() {
+function Movies(props) {
   return (
-    <div className="movies__wrapper">
-      <MoviesCardList cards={cards} />
-      <div className="movies__button-wrapper">
-        <button className="movies__button-more">Ещё</button>
+    <main>
+      
+      <div className="movies__wrapper">
+        <MoviesCardList
+          cards={cards}
+          buttonTypeClose={props.buttonTypeClose}
+          
+          onClickShortsButton={props.onClickShortsButton}
+          shortsButtonActive={props.shortsButtonActive}
+        />
+        <div className="movies__button-wrapper">
+          <button type="button" className="movies__button-more">Ещё</button>
+        </div>
       </div>
-    </div>
+
+    </main>
   );
 }
 

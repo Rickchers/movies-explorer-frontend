@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+.moviescard_hided {
+ display: none;
+}
+
 .moviescard__head-wrapper {
   display: flex;
   flex-direction: row;
@@ -36,13 +40,23 @@
 }
 
 .moviescard__head-icon {
+  all: unset;
   width: 30px;
   height: 30px;
   margin: 19px 14px 19px 0;
   background-image: url("../../images/moviescard__head-icon-inactive.svg");
 }
 
+.moviescard__close-icon {
+  all: unset;
+  width: 30px;
+  height: 30px;
+  margin: 19px 14px 19px 0;
+  background-image: url("../../images/moviescard__close-icon.svg");
+}
+
 .moviescard__head-icon_active {
+  all: unset;
   width: 30px;
   height: 30px;
   margin: 19px 14px 19px 0;

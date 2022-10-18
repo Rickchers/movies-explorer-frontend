@@ -84,6 +84,11 @@
     padding-top: 70px;
   }
 
+  .login__logo {
+    margin: 0 auto;
+    display: block;
+  }
+
   .login__title {
     text-align: center;
   }

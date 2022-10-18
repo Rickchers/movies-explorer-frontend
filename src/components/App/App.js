@@ -17,6 +17,16 @@ import { useState } from "react";
 
 function App() {
   const [isLoaded, setLoaded] = useState(true);
+  const [isMoviecardClosed, setMoviecardClosed] = useState(false);
+  const [isShortsButtonActive, setShortsButtonActive] = useState(false);
+
+  function handleCloseMoviecard() {    
+    setMoviecardClosed(true);
+  }
+
+  function handleShortsButtonActive() {
+    setShortsButtonActive(!isShortsButtonActive);
+  }
 
   return (
     <div className="App">
@@ -35,7 +45,12 @@ function App() {
             <Header
               isLoggedIn={true}
             />
-            <Movies />
+            <Movies
+              buttonTypeClose={false}
+
+              shortsButtonActive={isShortsButtonActive}
+              onClickShortsButton={handleShortsButtonActive}
+            />
             <Footer />
           </Route>
 
@@ -43,7 +58,15 @@ function App() {
             <Header
               isLoggedIn={true}
             />
-            <SavedMovies />
+            <SavedMovies
+              buttonTypeClose={true}
+              
+              onClickCloseIcon={handleCloseMoviecard}
+              moviecardClosed={isMoviecardClosed}
+
+              shortsButtonActive={isShortsButtonActive}
+              onClickShortsButton={handleShortsButtonActive}
+            />
             <Footer />
           </Route>
 

@@ -9,10 +9,19 @@ import "./SavedMovies.css";
 
 const cards = [image1, image2, image3];
 
-function SavedMovies() {
+function SavedMovies(props) {
+  // alert (props.moviecardClosed);
   return (
     <div className="savedmovies__wrapper">
-      <MoviesCardList cards={cards}/>
+      <MoviesCardList
+        cards={cards}
+        buttonTypeClose={props.buttonTypeClose}
+        onClickCloseIcon={props.onClickCloseIcon}
+        moviecardClosed={props.moviecardClosed}
+        
+        onClickShortsButton={props.onClickShortsButton}
+        shortsButtonActive={props.shortsButtonActive}
+      />
     </div>
   )
 }

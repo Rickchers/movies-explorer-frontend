@@ -102,7 +102,7 @@
   }
 
   .student__about-content {
-    width: 366px;
+    max-width: 366px;
   }
 
   .studetn__foto {
@@ -150,7 +150,7 @@
   .student__about-text {
     box-sizing: border-box;
     display: block;
-    width: 320px;
+    width: 100%;
     font-size: 11px;
     line-height: 16px;
     margin-bottom: 40px;

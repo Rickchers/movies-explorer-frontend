@@ -1,10 +1,10 @@
 import "./Student.css";
-import foto from "../../images/stas.jpeg"
+import foto from "../../images/myportret.jpg"
 
 function Student() {
   return (
     <section className="student">
-      <div className="student__wrapper">
+      <article className="student__wrapper">
         <h2 className="student__title">Студент</h2>
         <div className="student__about-wrapper">
           <div className="student__about-content">
@@ -19,9 +19,9 @@ function Student() {
             </p>
             <a href="https://github.com/Rickchers/" className="student__link">Github</a> 
           </div>
-          <img className="studetn__foto" src={foto} alt="фотография студента" />
+          <img className="studetn__foto" src={foto} alt="портрет студента" />
         </div>
-      </div>
+      </article>
     </section>
   )
 }

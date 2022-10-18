@@ -15,8 +15,8 @@ function Portfolio() {
               rel="noreferrer"
             >
               Статичный сайт
+              <img className="portfolio__icon" src={arrow} alt="стрелка" />
             </a>
-            <img className="portfolio__icon" src={arrow} alt="стрелка" />
           </li>
           <li className="portfolio__list-row">
             <a
@@ -26,8 +26,8 @@ function Portfolio() {
               rel="noreferrer"
             >
               Адаптивный сайт
+              <img className="portfolio__icon" src={arrow} alt="стрелка" />
             </a>
-            <img className="portfolio__icon" src={arrow} alt="стрелка" />
           </li>
           <li className="portfolio__list-row">
             <a
@@ -37,8 +37,8 @@ function Portfolio() {
               rel="noreferrer"
             >
               Одностраничное приложение
+              <img className="portfolio__icon" src={arrow} alt="стрелка" />
             </a>
-            <img className="portfolio__icon" src={arrow} alt="стрелка" />
           </li>
         </ul>
 

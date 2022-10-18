@@ -6,7 +6,7 @@ import cross from "../../images/cross.svg";
 
 
 function Navigation(props) {
-  //alert (props.isOpened );
+  
   return (
     <div
       className={`${props.isOpened ? "nav__body_siderbar" : "nav__body"}`}
@@ -30,7 +30,7 @@ function Navigation(props) {
           <img
           className="nav__image"
           src={accaunt}
-          alt=""
+          alt="иконка аккаунта"
         />
         </div>
       </nav>

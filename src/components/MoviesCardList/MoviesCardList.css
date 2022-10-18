@@ -3,6 +3,12 @@
   box-sizing: border-box;
 }
 
+.moviescardlist__list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
 .moviescardlist {
   display: grid;
   width: 100%;

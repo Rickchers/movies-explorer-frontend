@@ -98,6 +98,11 @@
     padding-top: 70px;
   }
 
+  .register__logo {
+    margin: 0 auto;
+    display: block;
+  }
+
   .register__title {
     text-align: center;
   }

@@ -1,7 +1,8 @@
 import "./SearchForm.css";
-import tumb from "../../images/tumb.svg";
 
-function SearchForm() {
+function SearchForm(props) {
+  // alert(props.shortsButtonActive);
+  //const shortsButtonActive = false;
   return (
     <div className="search-form__wrapper" >
 
@@ -20,15 +21,17 @@ function SearchForm() {
           Поиск          
         </button>
 
+        
+
       </form>
       
       <div className="search-form__shorts">
         
-        <img
-          className="search-form__shorts-tumb"
-          src={tumb}
-          alt=""
-        />
+        <button
+          // className="search-form__shorts-tumb"
+          className={`${props.shortsButtonActive ? "search-form__shorts-tumb_active" : "search-form__shorts-tumb"}`}
+          onClick={props.onClickShortsButton}
+        ></button>
         
         <p className="search-form__shorts-name">Короткометражки</p>
 
