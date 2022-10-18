@@ -12,7 +12,7 @@ const cards = [image1, image2, image3];
 function SavedMovies(props) {
   // alert (props.moviecardClosed);
   return (
-    <div className="savedmovies__wrapper">
+    <main className="savedmovies__wrapper">
       <MoviesCardList
         cards={cards}
         buttonTypeClose={props.buttonTypeClose}
@@ -22,7 +22,7 @@ function SavedMovies(props) {
         onClickShortsButton={props.onClickShortsButton}
         shortsButtonActive={props.shortsButtonActive}
       />
-    </div>
+    </main>
   )
 }
 

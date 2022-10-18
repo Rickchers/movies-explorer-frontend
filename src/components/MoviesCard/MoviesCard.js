@@ -1,10 +1,10 @@
 import "./MoviesCard.css";
 
 function MoviesCard(props) {
-  //alert (props.moviecardClosed);
+ 
   return (
     <section
-      // className="moviescard"
+      
       className={`${props.moviecardClosed ? "moviescard_hided" : "moviescard"}`}  
     >
       <div className="moviescard__head-wrapper">
@@ -22,7 +22,7 @@ function MoviesCard(props) {
         src={props.link}
         className="moviescard__image"
         alt="карточка фильма"
-      />
+      /> 
     </section>
   )
 }
