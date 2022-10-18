@@ -1,0 +1,163 @@
+.student {
+  background-color: #202020;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.student__wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 114px 70px 0;
+}
+
+.student__title {
+  width: 100%;
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  text-align: left;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #DADADA;
+  letter-spacing: -0.04em;
+}
+
+.student__about-wrapper{
+  margin: 66px 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.student__about-title {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: left;
+}
+
+.student__about-subtitle {
+  margin: 18px 0 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  text-align: left;
+}
+
+.student__about-text {
+  max-width: 600px;
+  margin: 26px 0 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: left;  
+}
+
+.student__about-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.student__link {
+  text-decoration: none;
+  margin-top: auto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: left;
+  color: #FFFFFF;  
+}
+
+.studetn__foto {
+  border-radius: 10px;
+  width: 270px;
+  height: 327px;
+  object-fit: cover;
+
+}
+
+@media screen and (max-width: 768px) {
+  .student__wrapper {
+    padding: 80px 50px;
+  }
+
+  .student__about-title {
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .student__about-subtitle {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .student__about-text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .student__about-content {
+    max-width: 366px;
+  }
+
+  .studetn__foto {
+    width: 255px;
+    height: 307px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .student__wrapper {
+    padding: 100px 14px;
+  }
+
+  .student__about-wrapper{
+    flex-direction: column-reverse;
+  }
+  .studetn__foto {
+    width: 292px;
+    
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .student__wrapper {
+    padding: 75px 14px 0;
+  }
+
+  .student__title {
+    padding-bottom: 25px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .student__about-title {
+    margin-top: 35px;
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .student__about-subtitle {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .student__about-text {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 40px;
+  }
+
+  .studetn__foto {
+    width: 100%;
+    height: 352px;
+  }
+}
