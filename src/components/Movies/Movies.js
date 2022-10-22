@@ -1,6 +1,9 @@
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import "./Movies.css";
 
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+
 import image1 from "../../images/movies_pics0.png";
 import image2 from "../../images/movies_pics1.png";
 import image3 from "../../images/movies_pics2.png";
@@ -32,7 +35,9 @@ const cards = [
 function Movies(props) {
   return (
     <main>
-      
+      <Header
+        isLoggedIn={props.isLoggedIn}
+      />
       <div className="movies__wrapper">
         <MoviesCardList
           cards={cards}
@@ -45,6 +50,7 @@ function Movies(props) {
           <button type="button" className="movies__button-more">Ещё</button>
         </div>
       </div>
+      <Footer />
 
     </main>
   );

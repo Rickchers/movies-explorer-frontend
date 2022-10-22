@@ -1,9 +1,28 @@
 import "./Login.css";
 import logo from "../../images/header__logo.svg";
 
+import React, { useState } from "react";
+
 import { Link } from "react-router-dom";
 
-function Login() {
+function Login(props) {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleChangeEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handleChangePassword(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onLogin(email, password);
+  }
+
   return (
     <section className="login__wrapper">
       <a href="/">
@@ -15,10 +34,14 @@ function Login() {
       </a>
       <h3 className="login__title">Рады видеть!</h3>
       
-      <form className="login__form">
+      <form
+        className="login__form"
+        onSubmit={handleSubmit}
+      >
         
         <span className="login__input-title">E-mail</span>
         <input
+          onChange={handleChangeEmail}
           className="login__input"
           required
           type="text"
@@ -27,6 +50,7 @@ function Login() {
 
         <span className="login__input-title">Пароль</span>
         <input
+          onChange={handleChangePassword}
           className="login__input"
           required
           type="password"

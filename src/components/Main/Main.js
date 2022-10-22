@@ -12,15 +12,18 @@ import Portfolio from "../Portfolio/Portfolio";
 
 
 
-function Main() {
+
+
+function Main(props) {
   return (
     <main className="main">
-      
+
       <Hero />
       <About />
       <Tech />
       <Student />
-      <Portfolio />      
+      <Portfolio />
+    
       
 
     </main>
