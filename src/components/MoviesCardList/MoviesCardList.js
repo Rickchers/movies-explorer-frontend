@@ -1,9 +1,13 @@
+
+
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard"
 import SearchForm from "../SearchForm/SearchForm"
 
 function MoviesCardList(props) {
-  // alert (props.shortsButtonActive);
+  
+  //console.log(props.isLiked);
+  //console.log(props.movieCards[0].id);
   return (
     <section>
       <SearchForm
@@ -12,23 +16,30 @@ function MoviesCardList(props) {
        onSearch={props.onSearch}
       />
       <div className="moviescardlist__wrapper">
-        <section className="moviescardlist">
-          {props.cards.map((card, i) => {
+        <ul className="moviescardlist">
+          {props.movieCards.map((movieCard, i) => {
+            
             return (
-              <ul  className="moviescardlist__list">
-                <li>
+              <li key={movieCard.id} className="moviescardlist__list">
+                
                   <MoviesCard
-                    link={card}
+                    
+                    ref={props.likeRef}
+                    movieCard={movieCard}
                     buttonTypeClose={props.buttonTypeClose}
                     onClickCloseIcon={props.onClickCloseIcon}
                     moviecardClosed={props.moviecardClosed}
-                    
+                    isLiked={props.isLiked}
+                    // onClickLiked={props.onClickLiked}
+                    onMovieCardLike={props.onMovieCardLike}                  
                   />                
-                </li>
-              </ul>
+               </li>
+                
             )
+            
+            
           })}
-        </section>        
+        </ul>        
       </div>
     </section>  
     

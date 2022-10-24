@@ -49,7 +49,15 @@ function App() {
   function goBack() {
     history.goBack();
   }
+  //====================movieCard========================
+  function handleMovieCardLike(movieCard) {
+    console.log(movieCard);
+    mainApi
+      .changeMoviecardLikeStatus(movieCard)
+      .catch((err) => console.log(err));
+  }
 
+  //=====================================================
 
   //====================mainApi==========================
   function handleRegister(name, email, password) {
@@ -70,9 +78,6 @@ function App() {
       .then(() => {
         setLoggedIn(true);
         history.push("/movies");
-      },
-      (err) => {
-        
       })
       .catch((err) => console.log(err));
   }
@@ -122,11 +127,11 @@ function App() {
             <ProtectedRoute
               path="/movies"
               isLoggedIn={true}
-              component={Movies}   
-              
-              buttonTypeClose={false}
+              component={Movies}              
+              buttonTypeClose={false}              
               shortsButtonActive={isShorts}
               onClickShortsButton={handleShorts}
+              onMovieCardLike={handleMovieCardLike}
             /> 
 
             <Route path="/saved-movies">

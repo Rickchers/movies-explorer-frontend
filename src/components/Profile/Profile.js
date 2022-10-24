@@ -1,5 +1,5 @@
 import "./Profile.css";
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 function Profile(props) {
