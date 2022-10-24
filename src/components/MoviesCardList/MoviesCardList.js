@@ -9,6 +9,7 @@ function MoviesCardList(props) {
       <SearchForm
        onClickShortsButton={props.onClickShortsButton}
        shortsButtonActive={props.shortsButtonActive}
+       onSearch={props.onSearch}
       />
       <div className="moviescardlist__wrapper">
         <section className="moviescardlist">

@@ -29,6 +29,8 @@
 }
 
 .notfound__link-back {
+  all: unset;
+  cursor: pointer;
   display: block;
   text-decoration: none;
   color: #4285F4;

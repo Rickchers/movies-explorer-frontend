@@ -1,6 +1,10 @@
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import "./Movies.css";
 
+import { moviesApi } from "../../utils/MoviesApi";
+
+import { useState, useEffect } from "react";
+
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
@@ -32,7 +36,59 @@ const cards = [
   image12,
 ];
 
+const moviesSearchResult = [];
+
 function Movies(props) {
+  // массив объектов фильмов
+  const [movies, setMovies] = useState([]);
+  
+  useEffect(() => {
+    if (true) {
+      moviesApi.getMovies().then((result) => {
+        setMovies(result);        
+      })
+      .catch((err) => console.log(err));
+    }
+  }, [movies]);
+
+  // поиск по ключевым словам из SearchForm
+  function handleSearch(input) {
+    
+    // поисковой запрос в массив из строки
+    const userQueryWord = input.split(" ");
+
+    userQueryWord.forEach((word) => {
+
+      movies.forEach((item, i) => {
+      
+        const movieNameRU = item.nameRU.toLowerCase().trim();
+        
+        if (movieNameRU.indexOf(word) > -1) {
+
+          console.log(movies[i]);
+          moviesSearchResult.push(movies[i]); 
+
+        }
+        
+      });
+
+    });
+    
+    //console.log(what);
+    
+    // for(var n=0; n<what.length; n++){
+    //   movies.forEach((item, i) => {
+      
+    //     const movieNameRU = item.nameRU.toLowerCase().trim();
+    //     if(movieNameRU.indexOf(what[n]) > -1){
+    //       console.log(movies[i]); 
+    //     }
+        
+    //   });
+    // }
+
+  }
+
   return (
     <main>
       <Header
@@ -40,9 +96,10 @@ function Movies(props) {
       />
       <div className="movies__wrapper">
         <MoviesCardList
-          cards={cards}
+          // cards={cards}
+          cards={moviesSearchResult}
           buttonTypeClose={props.buttonTypeClose}
-          
+          onSearch={handleSearch}
           onClickShortsButton={props.onClickShortsButton}
           shortsButtonActive={props.shortsButtonActive}
         />

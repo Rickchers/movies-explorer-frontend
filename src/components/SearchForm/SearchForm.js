@@ -1,14 +1,31 @@
 import "./SearchForm.css";
 
+import React, { useState } from "react";
+
 function SearchForm(props) {
-  // alert(props.shortsButtonActive);
-  //const shortsButtonActive = false;
+  
+  const [input, setInput] = useState("");
+
+  function handleChangeInputContent(e) {
+    setInput(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onSearch(input);
+  }
+
   return (
     <div className="search-form__wrapper" >
 
-      <form name="search-form" className="search-form">
+      <form
+        name="search-form"
+        className="search-form"
+        onSubmit={handleSubmit}
+      >
         
         <input
+          onChange={handleChangeInputContent}
           required
           placeholder="Фильм"
           className="search-form__input"

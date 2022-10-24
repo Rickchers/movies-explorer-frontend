@@ -51,16 +51,19 @@
   text-align: left;
 }
 
-.profile__edit {
+.profile__edit-button {
+  all: unset;
   font-size: 13px;
   line-height: 16px;
   font-style: normal;
   font-weight: 400;
   text-align: center;
-  margin: 0;
+  margin: 0 auto;
+  display: block;
+  cursor: pointer;
 }
 
-.profile__edit_colored {
+.profile__edit-button_colored {
   color: #EE3465;
   margin-top: 16px;
 }

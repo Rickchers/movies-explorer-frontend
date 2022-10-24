@@ -9,22 +9,24 @@ import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 import Notfound from '../Notfound/Notfound';
 // import Preloader from "../Preloader/Preloader";
-import { moviesApi } from "../../utils/MoviesApi";
+
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import * as auth from "../../utils/auth";
+import * as mainApi from "../../utils/MainApi";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 
-import { Route, Switch, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Route, Switch, useHistory } from "react-router-dom";
 
 
 function App() {
-  const [isLoaded, setLoaded] = useState(true);
+  // const [isLoaded, setLoaded] = useState(true);
   const [isMoviecardClosed, setMoviecardClosed] = useState(false);
-  const [isShortsButtonActive, setShortsButtonActive] = useState(false);
+  const [isShorts, setShorts] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
 
-  const [movies, setMovies] = useState([]);
+ 
 
   const history = useHistory();
  
@@ -32,23 +34,38 @@ function App() {
     setMoviecardClosed(true);
   }
 
-  function handleShortsButtonActive() {
-    setShortsButtonActive(!isShortsButtonActive);
+  function handleShorts() {
+    setShorts(!isShorts);
   }
 
-  useEffect(() => {
-    if (true) {
-      moviesApi.getMovies().then((result) => {
-        setMovies(result);        
+  function handleUpdateUser(name, email) {
+    
+    mainApi.setUserData(name, email).then((result) => {
+      setCurrentUser(result);
+    })
+    .catch((err) => console.log(err));
+  }
+
+  function goBack() {
+    history.goBack();
+  }
+
+
+  //====================mainApi==========================
+  function handleRegister(name, email, password) {
+    mainApi.register(name, email, password).then(
+      (res) => {
+        //setIsRegister(true);
+        history.push("/signin");
+      },
+      (err) => {
+        //handleInfoTooltip();
       })
       .catch((err) => console.log(err));
-    }
-  }, []);
-  //console.log(movies);
+  }
 
-  //====================auth==========================
   function handleLogin(email, password) {
-    auth
+    mainApi
       .authorize(email, password)
       .then(() => {
         setLoggedIn(true);
@@ -59,82 +76,110 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
-  //====================end auth======================
-  return (
-    <div className="App">
 
+  function handleSignOut() {
+    localStorage.removeItem("token");
+    setLoggedIn(false);
+    history.push("/");
+  }  
+
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  function tokenCheck() {
+    const token = localStorage.getItem("token");
+    
+    if (token) {
+      mainApi.getContent(token).then((res) => {    
+        console.log(res);    
+        if (res) {
+          setLoggedIn(true);
+          setCurrentUser(res);
+          //history.push("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
         
-        <Switch>
+      });
+    }
+  }
+  //====================end mainApi======================
+  return (
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="App">
 
-          <Route exact path="/">
-            <Header isLoggedIn={isLoggedIn}/>
-            <Main />
-            <Footer />            
-          </Route>
+          
+          <Switch>
 
-          <ProtectedRoute
-            path="/movies"
-            isLoggedIn={true}
-            component={Movies}   
-            
-            buttonTypeClose={false}
-            shortsButtonActive={isShortsButtonActive}
-            onClickShortsButton={handleShortsButtonActive}
-          /> 
+            <Route exact path="/">
+              <Header isLoggedIn={isLoggedIn}/>
+              <Main />
+              <Footer />            
+            </Route>
 
-          {/* <Route path="/movies">
-            <Header
+            <ProtectedRoute
+              path="/movies"
               isLoggedIn={true}
-            />
-            <Movies
-              buttonTypeClose={false}
-
-              shortsButtonActive={isShortsButtonActive}
-              onClickShortsButton={handleShortsButtonActive}
-            />
-            <Footer />
-          </Route> */}
-
-          <Route path="/saved-movies">
-            <Header
-              isLoggedIn={true}
-            />
-            <SavedMovies
-              buttonTypeClose={true}
+              component={Movies}   
               
-              onClickCloseIcon={handleCloseMoviecard}
-              moviecardClosed={isMoviecardClosed}
+              buttonTypeClose={false}
+              shortsButtonActive={isShorts}
+              onClickShortsButton={handleShorts}
+            /> 
 
-              shortsButtonActive={isShortsButtonActive}
-              onClickShortsButton={handleShortsButtonActive}
-            />
-            <Footer />
-          </Route>
+            <Route path="/saved-movies">
+              <Header
+                isLoggedIn={true}
+              />
+              <SavedMovies
+                buttonTypeClose={true}
+                
+                onClickCloseIcon={handleCloseMoviecard}
+                moviecardClosed={isMoviecardClosed}
 
-          <Route path="/signup">
-            <Register />
-          </Route>
+                shortsButtonActive={isShorts}
+                onClickShortsButton={handleShorts}
+              />
+              <Footer />
+            </Route>
 
-          <Route path="/signin">
-            <Login
-              onLogin={handleLogin}
-            />
-          </Route>
+            <Route path="/signup">
+              <Register
+                onRegister={handleRegister}
+              />
+            </Route>
 
-          <Route path="/profile">
-            <Header
-              isLoggedIn={true}
-            />
-            <Profile />
-          </Route>
+            <Route path="/signin">
+              <Login
+                onLogin={handleLogin}
+              />
+            </Route>
 
-          <Route path="/404">
-            <Notfound />            
-          </Route>
+            <Route path="/profile">
 
-        </Switch>
+              <Header
+                isLoggedIn={isLoggedIn}
+              />
 
-    </div>
+              <Profile
+                currentUser={currentUser}
+                onSignOut={handleSignOut}
+                onUpdateUser={handleUpdateUser}
+              />
+            </Route>
+
+            <Route path="*">
+              <Notfound
+                goBack={goBack}
+              />            
+            </Route>
+
+          </Switch>
+      </div>
+
+    </CurrentUserContext.Provider>
   );
 }
 

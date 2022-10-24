@@ -2,8 +2,30 @@ import "./Register.css"
 import logo from "../../images/header__logo.svg";
 
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function Register() {
+function Register(props) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleChangeName(e) {
+    setName(e.target.value);
+  }
+
+  function handleChangeEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handleChangePassword(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onRegister(name, email, password);
+  }
+
   return (
     <section className="register__wrapper">
       <a href="/">
@@ -15,10 +37,11 @@ function Register() {
       </a>
       <h3 className="register__title">Добро пожаловать!</h3>
       
-      <form className="register__form">
+      <form onSubmit={handleSubmit} className="register__form">
         
         <span className="register__input-title">Имя</span>
         <input
+          onChange={handleChangeName}
           className="register__input"
           required
           placeholder=""
@@ -31,14 +54,16 @@ function Register() {
       
         <span className="register__input-title">E-mail</span>
         <input
+          onChange={handleChangeEmail}
           className="register__input"
           required
           type="text"
-          name="link"
+          name="email"
         />
 
         <span className="register__input-title">Пароль</span>
         <input
+          onChange={handleChangePassword}
           className="register__input"
           required
           type="password"
