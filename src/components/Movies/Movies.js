@@ -7,40 +7,28 @@ import Footer from "../Footer/Footer";
 
 
 function Movies(props) {
-  
-  // const [isLiked, setLiked] = useState(false);
-  
-  // function handleLiked() {
-    //   setLiked(!isLiked);
-    // }
+  //console.log(props.savedMoviesArr);
+   
+  const [findedMovies, setfindedMovies] = useState([]);
     
-    // массив объектов фильмов
-    const [movies, setMovies] = useState([]);
-    const [findedMovies, setfindedMovies] = useState([]);
-    
-  useEffect(() => {
-    if (true) {
-      moviesApi.getMovies().then((result) => {
-        setMovies(result);        
-      })
-      .catch((err) => console.log(err));
-    }
-  }, []);
 
   // поиск по ключевым словам из SearchForm
   function handleSearch(input) {
-    const moviesSearchResult = [];
-    movies.forEach((item, i) => {
-    
-      const movieNameRU = item.nameRU.toLowerCase().trim();
-      const inputLowerCase = input.toLowerCase().trim();
-      
-      if (movieNameRU.indexOf(inputLowerCase) > -1) {
-        //console.log(movies[i]);
-        moviesSearchResult.push(movies[i]);
-      } 
-    });
-    return setfindedMovies(moviesSearchResult);
+    const inputLowerCase = input.toLowerCase().trim();
+    moviesApi.getMovies()
+    .then(res => {
+      //console.log(res);
+      const findedMovies = res.filter((movie) => {
+        const movieNameRU = movie.nameRU.toLowerCase().trim();
+        return movieNameRU.indexOf(inputLowerCase) > -1;
+      });
+      return findedMovies;
+    })
+    .then(res => {
+      console.log(res);
+      setfindedMovies(res);
+    })
+    .catch((err) => console.log(err));
   }
 
   return (
@@ -49,17 +37,19 @@ function Movies(props) {
         isLoggedIn={props.isLoggedIn}
       />
       <div className="movies__wrapper">
-        <MoviesCardList
-          
+        <MoviesCardList          
           movieCards={findedMovies}
+
+          savedMoviesArr={props.savedMoviesArr}
+
           buttonTypeClose={props.buttonTypeClose}
           onSearch={handleSearch}
           onClickShortsButton={props.onClickShortsButton}
           shortsButtonActive={props.shortsButtonActive}
-          // isLiked={isLiked}
-          // onClickLiked={handleLiked}
-          onMovieCardLike={props.onMovieCardLike}
-
+          
+          //добавление/удаление фильма
+          onAddMovie={props.onAddMovie}
+          onDelMovie={props.onDelMovie}
         />
         <div className="movies__button-wrapper">
           <button type="button" className="movies__button-more">Ещё</button>

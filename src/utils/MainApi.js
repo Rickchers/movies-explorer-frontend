@@ -67,10 +67,31 @@ export const getContent = (token) => {
   .then(data => data);
 };
 
+// получение сохраненных фильмов
+export const getMovies = () => {
+  const token = localStorage.getItem("token");
+
+  return fetch(`${BASE_URL}/movies`, {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+  })
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка is number: ${res.status}`);  
+  });
+};
+
 // редактирование профиля
 export const setUserData = (name, email) => {
-  //console.log(name, email);
+  
   const token = localStorage.getItem("token");
+  
   return fetch(`${BASE_URL}/users/me`, {
     method: 'PATCH',
     headers: {
@@ -92,8 +113,9 @@ export const setUserData = (name, email) => {
     return Promise.reject(`Ошибка is number: ${res.status}`);  
   });
 }
+
 // сохранение фильма
-export const changeMoviecardLikeStatus = ({
+export const saveMovie = ({
   country,
   created_at,
   description,
@@ -132,6 +154,28 @@ export const changeMoviecardLikeStatus = ({
       "nameEN": nameEN,
     })
 
+  })
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка is number: ${res.status}`);  
+  });
+  
+}
+
+//удаление фильма
+export const deleteMovie = (id) => {
+  
+  const token = localStorage.getItem("token");
+
+  return fetch(`${BASE_URL}/movies/${id}`, {
+    method: 'DELETE',
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,      
+    },
   })
   .then((res) => {
     if (res.ok) {

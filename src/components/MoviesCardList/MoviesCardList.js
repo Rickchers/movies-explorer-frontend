@@ -5,9 +5,14 @@ import MoviesCard from "../MoviesCard/MoviesCard"
 import SearchForm from "../SearchForm/SearchForm"
 
 function MoviesCardList(props) {
-  
-  //console.log(props.isLiked);
-  //console.log(props.movieCards[0].id);
+  // console.log(props.savedMoviesArr);  
+
+  function checkSaved(savedMoviesArr, movieCard) {
+    //return true;
+    return savedMoviesArr.find((item) => item.movieId === movieCard.id);
+    //return savedMoviesArr;
+  }
+
   return (
     <section>
       <SearchForm
@@ -23,15 +28,18 @@ function MoviesCardList(props) {
               <li key={movieCard.id} className="moviescardlist__list">
                 
                   <MoviesCard
-                    
-                    ref={props.likeRef}
                     movieCard={movieCard}
+                    
+                    saved={checkSaved(props.savedMoviesArr, movieCard)}
+
                     buttonTypeClose={props.buttonTypeClose}
                     onClickCloseIcon={props.onClickCloseIcon}
                     moviecardClosed={props.moviecardClosed}
                     isLiked={props.isLiked}
-                    // onClickLiked={props.onClickLiked}
-                    onMovieCardLike={props.onMovieCardLike}                  
+                    
+                    //добавление/удаление фильма
+                    onAddMovie={props.onAddMovie} 
+                    onDelMovie={props.onDelMovie}                 
                   />                
                </li>
                 

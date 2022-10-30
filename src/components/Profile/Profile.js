@@ -6,7 +6,12 @@ function Profile(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const [name, setName] = useState('');
+  const [titleName, setTitleName] = useState(currentUser.name);  
+  
   const [email, setEmail] = useState('');
+
+
+
 
   useEffect(() => {
       setName(currentUser.name);
@@ -16,6 +21,7 @@ function Profile(props) {
   function handleSubmit(e){
     e.preventDefault();
     props.onUpdateUser(name, email);
+    setTitleName(name);
   }
 
   function handleChangeName(e) {        
@@ -29,7 +35,7 @@ function Profile(props) {
   return (
     <section className="profile__wrapper">
 
-      <h3 className="profile__title">{`Привет, ${name}`}</h3>
+      <h3 className="profile__title">{`Привет, ${titleName || currentUser.name}`}</h3>
       
       <form className="profile__form">
 

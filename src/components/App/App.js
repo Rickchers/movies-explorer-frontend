@@ -22,9 +22,13 @@ import { Route, Switch, useHistory } from "react-router-dom";
 function App() {
   // const [isLoaded, setLoaded] = useState(true);
   const [isMoviecardClosed, setMoviecardClosed] = useState(false);
+  
   const [isShorts, setShorts] = useState(false);
+  
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  
+  const [savedMoviesArr, setSavedMoviesArr] = useState([]);
 
  
 
@@ -49,17 +53,10 @@ function App() {
   function goBack() {
     history.goBack();
   }
-  //====================movieCard========================
-  function handleMovieCardLike(movieCard) {
-    console.log(movieCard);
-    mainApi
-      .changeMoviecardLikeStatus(movieCard)
-      .catch((err) => console.log(err));
-  }
 
-  //=====================================================
 
   //====================mainApi==========================
+  // регистрация
   function handleRegister(name, email, password) {
     mainApi.register(name, email, password).then(
       (res) => {
@@ -71,7 +68,7 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
-
+  // логин
   function handleLogin(email, password) {
     mainApi
       .authorize(email, password)
@@ -81,7 +78,7 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
-
+  // выход
   function handleSignOut() {
     localStorage.removeItem("token");
     setLoggedIn(false);
@@ -92,12 +89,13 @@ function App() {
     tokenCheck();
   }, []);
 
+  // проверка токена
   function tokenCheck() {
     const token = localStorage.getItem("token");
     
     if (token) {
       mainApi.getContent(token).then((res) => {    
-        console.log(res);    
+        //console.log(res);    
         if (res) {
           setLoggedIn(true);
           setCurrentUser(res);
@@ -105,12 +103,50 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
-        
+        console.log(err);        
       });
     }
   }
+  
+  //получаем массив сохраненных фильмов
+  useEffect(() => {
+    mainApi
+    .getMovies()    
+    .then(res => {
+      setSavedMoviesArr(res);
+    })
+  }, []);
+
+
   //====================end mainApi======================
+
+  //====================movieCard========================
+  //сохранить карточку в базе
+  function addMovie(movieCard) {
+    mainApi
+      .saveMovie(movieCard)
+      .then((newMovieCard) => {
+        setSavedMoviesArr([...savedMoviesArr, newMovieCard]);
+        //console.log(savedMoviesArr);
+      })
+      .catch((err) => console.log(err)); 
+  }
+  //удалить карточку из базы
+  function deleteMovie(movieCard) {
+    const savedMovie = savedMoviesArr.find((item) => item.movieId === movieCard.id);
+    console.log(savedMovie._id);
+      
+    mainApi
+      .deleteMovie(savedMovie._id)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err)); 
+  }
+
+  //=====================================================
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -127,11 +163,17 @@ function App() {
             <ProtectedRoute
               path="/movies"
               isLoggedIn={true}
-              component={Movies}              
+              component={Movies}
+
+              savedMoviesArr={savedMoviesArr}
+
               buttonTypeClose={false}              
               shortsButtonActive={isShorts}
               onClickShortsButton={handleShorts}
-              onMovieCardLike={handleMovieCardLike}
+              
+              //добавление/удаление фильма
+              onAddMovie={addMovie}
+              onDelMovie={deleteMovie}
             /> 
 
             <Route path="/saved-movies">
