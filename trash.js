@@ -91,3 +91,19 @@
     moviesSearchResult.map((item) => setfindedMovies([...findedMovies, item]));
     //return setfindedMovies(moviesSearchResult);
     */
+//--------------------------------------------------
+    // const inputLowerCase = SearchInput.toLowerCase().trim();
+    // moviesApi.getMovies()
+    // .then(res => {
+    //   //console.log(res);
+    //   const searchResult = res.filter((movie) => {
+    //     const movieNameRU = movie.nameRU.toLowerCase().trim();
+    //     return movieNameRU.indexOf(inputLowerCase) > -1;
+    //   });
+    //   return searchResult;
+    // })
+    // .then(res => {
+    //   console.log(res);
+    //   setfindedMovies(res);
+    // })
+    // .catch((err) => console.log(err));

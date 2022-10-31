@@ -11,7 +11,11 @@ import Notfound from '../Notfound/Notfound';
 // import Preloader from "../Preloader/Preloader";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+
+//API
 import * as mainApi from "../../utils/MainApi";
+import { moviesApi } from "../../utils/MoviesApi";
+
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 
@@ -26,11 +30,14 @@ function App() {
   const [isShorts, setShorts] = useState(false);
   
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({});  
   
-  const [savedMoviesArr, setSavedMoviesArr] = useState([]);
-
- 
+  //поиск по фильмам BeatFilms
+  const [filteredBeatFilms, setFilteredBeatFilms] = useState([]);  
+  const [searchInput, setSearchInput] = useState([]);
+  
+  //все карточки BeatFilms  
+  const [cards, setCards] = useState([]);
 
   const history = useHistory();
  
@@ -107,45 +114,83 @@ function App() {
       });
     }
   }
+
+  // useEffect(() => {
+  //   setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+    
+
+  // }, []);
+
+  // получаем массив BeatFilms
+  useEffect(() => {
+    moviesApi.getMovies()
+    .then((res) => {
+      setCards(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }, []);
   
-  //получаем массив сохраненных фильмов
+  // получаем массив сохраненных фильмов
   useEffect(() => {
     mainApi
-    .getMovies()    
-    .then(res => {
-      setSavedMoviesArr(res);
-    })
+      .getMovies()    
+      .then((res) => {
+        setFilteredBeatFilms(res);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }, []);
 
-
-  //====================end mainApi======================
-
-  //====================movieCard========================
   //сохранить карточку в базе
   function addMovie(movieCard) {
     mainApi
       .saveMovie(movieCard)
       .then((newMovieCard) => {
-        setSavedMoviesArr([...savedMoviesArr, newMovieCard]);
-        //console.log(savedMoviesArr);
+        setFilteredBeatFilms([...filteredBeatFilms, newMovieCard]);
       })
+      .then(console.log(filteredBeatFilms))
       .catch((err) => console.log(err)); 
   }
+
   //удалить карточку из базы
   function deleteMovie(movieCard) {
-    const savedMovie = savedMoviesArr.find((item) => item.movieId === movieCard.id);
-    console.log(savedMovie._id);
+    const savedMovie = filteredBeatFilms.find((item) => item.movieId === movieCard.id);
+    //console.log(savedMovie._id);
       
     mainApi
       .deleteMovie(savedMovie._id)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
+        //setFilteredBeatFilms(filteredBeatFilms.filter((item) => item._id !== res._id));
+
+        //console.log(savedMoviesArr);
       })
-      .catch((err) => console.log(err)); 
+      .catch((err) => console.log(err));
   }
 
-  //=====================================================
 
+  
+  //фильтруем BeatFilms
+  function handleMoviesFilter(arrayBeatFilms) {
+    // console.log(searchInput);
+    console.log(arrayBeatFilms);
+
+    const inputLowerCase = searchInput.toLowerCase().trim();
+
+    const searchResult = arrayBeatFilms.filter((movie) => {
+      const movieNameRU = movie.nameRU.toLowerCase().trim();
+      return movieNameRU.indexOf(inputLowerCase) > -1;
+    });
+    console.log(searchResult);
+
+    localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
+    setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+    
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -165,7 +210,7 @@ function App() {
               isLoggedIn={true}
               component={Movies}
 
-              savedMoviesArr={savedMoviesArr}
+              //savedMoviesArr={savedMoviesArr}
 
               buttonTypeClose={false}              
               shortsButtonActive={isShorts}
@@ -174,6 +219,15 @@ function App() {
               //добавление/удаление фильма
               onAddMovie={addMovie}
               onDelMovie={deleteMovie}
+
+              //поиск фильма
+              handleFilter={handleMoviesFilter}
+              //movieCards={findedMovies}
+              setSearchInput={setSearchInput}
+
+              //
+              cards={cards}
+              filteredBeatFilms={filteredBeatFilms}
             /> 
 
             <Route path="/saved-movies">

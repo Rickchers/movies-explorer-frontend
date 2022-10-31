@@ -146,7 +146,7 @@ export const saveMovie = ({
       "duration": duration,
       "year": year,
       "description": description,
-      "image": "https://api.nomoreparties.co/"+image.url,
+      "image": `https://api.nomoreparties.co/${image.url}/`,
       "trailerLink": trailerLink,
       "thumbnail": "https://api.nomoreparties.co/",
       "movieId": id,

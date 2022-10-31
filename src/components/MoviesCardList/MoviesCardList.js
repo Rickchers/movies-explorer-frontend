@@ -5,41 +5,43 @@ import MoviesCard from "../MoviesCard/MoviesCard"
 import SearchForm from "../SearchForm/SearchForm"
 
 function MoviesCardList(props) {
-  // console.log(props.savedMoviesArr);  
-
-  function checkSaved(savedMoviesArr, movieCard) {
-    //return true;
-    return savedMoviesArr.find((item) => item.movieId === movieCard.id);
-    //return savedMoviesArr;
-  }
-
   return (
     <section>
       <SearchForm
-       onClickShortsButton={props.onClickShortsButton}
-       shortsButtonActive={props.shortsButtonActive}
-       onSearch={props.onSearch}
+        onClickShortsButton={props.onClickShortsButton}
+        shortsButtonActive={props.shortsButtonActive}
+
+        onSearch={props.onSearch}
+        setSearchInput={props.setSearchInput}
+
+        //поиск фильма
+        handleFilter={props.handleFilter}
+
+        //
+        cards={props.cards}
       />
       <div className="moviescardlist__wrapper">
         <ul className="moviescardlist">
-          {props.movieCards.map((movieCard, i) => {
+          {props.filteredBeatFilms.slice(0, 3).map((movieCard, i) => {
             
             return (
-              <li key={movieCard.id} className="moviescardlist__list">
+              <li key={i} className="moviescardlist__list">
                 
                   <MoviesCard
-                    movieCard={movieCard}
                     
-                    saved={checkSaved(props.savedMoviesArr, movieCard)}
+                    movieCard={movieCard}
 
                     buttonTypeClose={props.buttonTypeClose}
                     onClickCloseIcon={props.onClickCloseIcon}
                     moviecardClosed={props.moviecardClosed}
-                    isLiked={props.isLiked}
+                    
                     
                     //добавление/удаление фильма
                     onAddMovie={props.onAddMovie} 
-                    onDelMovie={props.onDelMovie}                 
+                    onDelMovie={props.onDelMovie}  
+                    
+                    //результат поиска по запросу
+                    filteredBeatFilms={props.filteredBeatFilms}
                   />                
                </li>
                 

@@ -1,18 +1,9 @@
 import "./SearchForm.css";
 
-import React, { useState } from "react";
-
 function SearchForm(props) {
-  
-  const [input, setInput] = useState("");
 
   function handleChangeInputContent(e) {
-    setInput(e.target.value);
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    props.onSearch(input);
+    props.setSearchInput(e.target.value);
   }
 
   return (
@@ -21,7 +12,10 @@ function SearchForm(props) {
       <form
         name="search-form"
         className="search-form"
-        onSubmit={handleSubmit}
+        onSubmit={(e) => {
+          e.preventDefault();
+          props.handleFilter(props.cards);
+        }}
       >
         
         <input
@@ -45,7 +39,6 @@ function SearchForm(props) {
       <div className="search-form__shorts">
         
         <button
-          // className="search-form__shorts-tumb"
           className={`${props.shortsButtonActive ? "search-form__shorts-tumb_active" : "search-form__shorts-tumb"}`}
           onClick={props.onClickShortsButton}
         ></button>

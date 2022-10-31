@@ -1,23 +1,36 @@
-
-
 import "./MoviesCard.css";
+
 import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from "react";
+
 const URL = "https://api.nomoreparties.co/"
 
 
 function MoviesCard(props) {
-  console.log(props.saved);
-
+  
   const location = useLocation();
 
   function handleLikeClick() {
     props.onAddMovie(props.movieCard);
+    setIsLiked(!isLiked);
   }
 
   function handleUnlikeClick() {
-    props.onDelMovie(props.movieCard) 
+    props.onDelMovie(props.movieCard);
+    setIsLiked(!isLiked); 
   }
 
+  const [isLiked, setIsLiked] = useState(false);
+
+  // useEffect(() => {
+  //   props.filteredBeatFilms.map((item) => {
+  //     if (item.movieId === props.movieCard.id) {
+  //       setIsLiked(true);
+  //     }
+  //   });
+  // }, [props.filteredBeatFilms]);
+
+  console.log(isLiked);
   return (
     <section      
       className={`${props.moviecardClosed ? "moviescard_hided" : "moviescard"}`}  
@@ -28,18 +41,17 @@ function MoviesCard(props) {
           <h4 className="moviescard__head">{props.movieCard.nameRU}</h4>
           <p className="moviescard__subtitle">{props.movieCard.duration}</p>
         </div>
+
         {location.pathname === '/movies' && (
           <button
             onClick={
-              props.saved ?
+              isLiked ?
               handleUnlikeClick :
               handleLikeClick
             }
             type="button"
-            className={`${
-              props.saved ?
-              "moviescard__head-icon_active" :
-              "moviescard__head-icon" }`}        
+            className={`${isLiked ? "moviescard__head-icon_active" : "moviescard__head-icon" }`}
+                
           ></button>
         )}
         
