@@ -141,12 +141,15 @@ export const saveMovie = ({
     },
 
     body: JSON.stringify({
-      "country": country,
+      country: country,
       "director": director,
       "duration": duration,
       "year": year,
       "description": description,
-      "image": `https://api.nomoreparties.co/${image.url}/`,
+
+      "image": {"url": image.url},
+     
+
       "trailerLink": trailerLink,
       "thumbnail": "https://api.nomoreparties.co/",
       "movieId": id,

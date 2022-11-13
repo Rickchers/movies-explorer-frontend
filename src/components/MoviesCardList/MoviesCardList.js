@@ -1,10 +1,13 @@
-
+import React from "react";
 
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard"
 import SearchForm from "../SearchForm/SearchForm"
 
+import MoreButton from "../MoreButton/MoreButton";
+
 function MoviesCardList(props) {
+  
   return (
     <section>
       <SearchForm
@@ -19,29 +22,31 @@ function MoviesCardList(props) {
 
         //
         cards={props.cards}
+
       />
       <div className="moviescardlist__wrapper">
         <ul className="moviescardlist">
-          {props.filteredBeatFilms.slice(0, 3).map((movieCard, i) => {
+
+          {props.filmsToRender.slice(0, props.total).map((movieCard, i) => {
             
             return (
               <li key={i} className="moviescardlist__list">
                 
-                  <MoviesCard
-                    
+                  <MoviesCard               
+                    //все карты
+                    cards={props.cards}
+
                     movieCard={movieCard}
 
-                    buttonTypeClose={props.buttonTypeClose}
-                    onClickCloseIcon={props.onClickCloseIcon}
-                    moviecardClosed={props.moviecardClosed}
-                    
+                    savedFilms = {props.savedFilms}
+                    // moviecardClosed={props.moviecardClosed}                    
                     
                     //добавление/удаление фильма
                     onAddMovie={props.onAddMovie} 
-                    onDelMovie={props.onDelMovie}  
+                    onDelMovie={props.onDelMovie}
                     
-                    //результат поиска по запросу
-                    filteredBeatFilms={props.filteredBeatFilms}
+                    onDelFromSaved={props.onDelFromSaved}
+                    
                   />                
                </li>
                 
@@ -51,6 +56,11 @@ function MoviesCardList(props) {
           })}
         </ul>        
       </div>
+      {props.total < props.filmsToRender.length
+      &&
+      <MoreButton
+        handleTotal={props.handleTotal}
+      />}
     </section>  
     
     

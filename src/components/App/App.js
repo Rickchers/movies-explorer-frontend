@@ -8,7 +8,6 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 import Notfound from '../Notfound/Notfound';
-// import Preloader from "../Preloader/Preloader";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
@@ -19,18 +18,25 @@ import { moviesApi } from "../../utils/MoviesApi";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 
 
 function App() {
-  // const [isLoaded, setLoaded] = useState(true);
-  const [isMoviecardClosed, setMoviecardClosed] = useState(false);
   
+  const history = useHistory();
+  
+
   const [isShorts, setShorts] = useState(false);
   
+  //состояние прелоадера
+  const [loading, setLoading] = useState(false);
+  
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});  
+  const [currentUser, setCurrentUser] = useState({});
+  
+  //=====================
+  const [savedFilms, setSavedFilms] = useState([]);
   
   //поиск по фильмам BeatFilms
   const [filteredBeatFilms, setFilteredBeatFilms] = useState([]);  
@@ -39,13 +45,16 @@ function App() {
   //все карточки BeatFilms  
   const [cards, setCards] = useState([]);
 
-  const history = useHistory();
- 
-  function handleCloseMoviecard() {    
-    setMoviecardClosed(true);
+  const [total, setTotal] = useState(3);
+
+  // изменение количества выдачи резултата поиска
+  function handleTotal() {    
+    setTotal(total+3);
   }
 
-  function handleShorts() {
+ 
+  //изменение состояния переключателя короткометражек
+  function handleShorts() {    
     setShorts(!isShorts);
   }
 
@@ -95,6 +104,8 @@ function App() {
   useEffect(() => {
     tokenCheck();
   }, []);
+  
+
 
   // проверка токена
   function tokenCheck() {
@@ -114,64 +125,83 @@ function App() {
       });
     }
   }
-
-  // useEffect(() => {
-  //   setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
-    
-
-  // }, []);
-
   // получаем массив BeatFilms
   useEffect(() => {
+    setLoading(true);
     moviesApi.getMovies()
     .then((res) => {
       setCards(res);
     })
+    .then(() => setLoading(false))
     .catch((err) => {
       console.log(err);
     });
   }, []);
+
+ // получаем результаты поискового запроса, сохраненные в локальном хранилище
+  // useEffect(() => {
+  //   setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+  //   console.log(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+  // }, []);
+
   
-  // получаем массив сохраненных фильмов
+  //получаем массив сохраненных фильмов
   useEffect(() => {
     mainApi
       .getMovies()    
       .then((res) => {
-        setFilteredBeatFilms(res);
-        console.log(res);
+        setSavedFilms(res);
       })
       .catch((err) => {
         console.log(err);
       })
   }, []);
 
+  
+  //===================================================================
+
+
   //сохранить карточку в базе
   function addMovie(movieCard) {
+    // console.log('add');
+    // console.log(movieCard);
+    
     mainApi
       .saveMovie(movieCard)
       .then((newMovieCard) => {
-        setFilteredBeatFilms([...filteredBeatFilms, newMovieCard]);
+        setSavedFilms([...savedFilms, newMovieCard]);
+        
       })
-      .then(console.log(filteredBeatFilms))
-      .catch((err) => console.log(err)); 
+      .then(console.log(savedFilms))
+      .catch((err) => console.log(err));
+     
+  }
+  //удалить карточку из базы
+  function findCardId(c){
+    const findedCard = savedFilms.find((item) => item.movieId === c.id);
+    return findedCard;
   }
 
-  //удалить карточку из базы
-  function deleteMovie(movieCard) {
-    const savedMovie = filteredBeatFilms.find((item) => item.movieId === movieCard.id);
-    //console.log(savedMovie._id);
-      
+  function deleteMovie(movieCard) {  
     mainApi
-      .deleteMovie(savedMovie._id)
-      .then((res) => {
-        //console.log(res);
-        //setFilteredBeatFilms(filteredBeatFilms.filter((item) => item._id !== res._id));
-
-        //console.log(savedMoviesArr);
-      })
+      .deleteMovie(findCardId(movieCard)._id)
+      .then(res => setSavedFilms(savedFilms.filter((item) => item._id !== res._id)))
       .catch((err) => console.log(err));
   }
 
+  function deleteMovieFromSaved(movieCard) {  
+    mainApi
+      .deleteMovie(movieCard._id)
+      .then(res => setSavedFilms(savedFilms.filter((item) => item._id !== res._id)))
+      .catch((err) => console.log(err));
+  }
+
+
+  //полезный эффект
+  useEffect(() => {
+    console.log(isShorts);
+    //setFilteredBeatFilms([]);
+  }, [isShorts]);
 
   
   //фильтруем BeatFilms
@@ -180,15 +210,19 @@ function App() {
     console.log(arrayBeatFilms);
 
     const inputLowerCase = searchInput.toLowerCase().trim();
-
-    const searchResult = arrayBeatFilms.filter((movie) => {
+    if (!isShorts) {
+      const searchResult = arrayBeatFilms.filter((movie) => {
       const movieNameRU = movie.nameRU.toLowerCase().trim();
-      return movieNameRU.indexOf(inputLowerCase) > -1;
-    });
-    console.log(searchResult);
-
-    localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
-    setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+      return movieNameRU.indexOf(inputLowerCase) > -1;});
+      localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
+      setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+    } else if (isShorts) {
+      const searchResult = arrayBeatFilms.filter((movie) => {      
+      const movieNameRU = movie.nameRU.toLowerCase().trim();
+      return movieNameRU.indexOf(inputLowerCase) > -1 && movie.duration < 40;});
+      localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
+      setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+    }
     
   }
 
@@ -208,17 +242,22 @@ function App() {
             <ProtectedRoute
               path="/movies"
               isLoggedIn={true}
+              loading={loading}
+
               component={Movies}
 
-              //savedMoviesArr={savedMoviesArr}
-
-              buttonTypeClose={false}              
+              
+              total={total}
+              handleTotal={handleTotal}
+              
               shortsButtonActive={isShorts}
               onClickShortsButton={handleShorts}
               
               //добавление/удаление фильма
               onAddMovie={addMovie}
               onDelMovie={deleteMovie}
+
+              
 
               //поиск фильма
               handleFilter={handleMoviesFilter}
@@ -227,7 +266,8 @@ function App() {
 
               //
               cards={cards}
-              filteredBeatFilms={filteredBeatFilms}
+              filmsToRender={filteredBeatFilms}
+              savedFilms = {savedFilms}
             /> 
 
             <Route path="/saved-movies">
@@ -235,13 +275,8 @@ function App() {
                 isLoggedIn={true}
               />
               <SavedMovies
-                buttonTypeClose={true}
-                
-                onClickCloseIcon={handleCloseMoviecard}
-                moviecardClosed={isMoviecardClosed}
-
-                shortsButtonActive={isShorts}
-                onClickShortsButton={handleShorts}
+                filmsToRender = {savedFilms}
+                onDelFromSaved={deleteMovieFromSaved}
               />
               <Footer />
             </Route>
@@ -282,6 +317,7 @@ function App() {
 
     </CurrentUserContext.Provider>
   );
+  
 }
 
 export default App;

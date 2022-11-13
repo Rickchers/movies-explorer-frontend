@@ -1,39 +1,40 @@
-import "./MoviesCard.css";
-
+import React, { useState } from "react";
 import { useLocation } from 'react-router-dom';
-import { useState, useEffect } from "react";
+
+import "./MoviesCard.css";
 
 const URL = "https://api.nomoreparties.co/"
 
 
 function MoviesCard(props) {
-  
+  const [isLiked, setIsLiked] = useState(false);
   const location = useLocation();
 
-  function handleLikeClick() {
-    props.onAddMovie(props.movieCard);
-    setIsLiked(!isLiked);
-  }
-
-  function handleUnlikeClick() {
-    props.onDelMovie(props.movieCard);
-    setIsLiked(!isLiked); 
-  }
-
-  const [isLiked, setIsLiked] = useState(false);
-
   // useEffect(() => {
-  //   props.filteredBeatFilms.map((item) => {
-  //     if (item.movieId === props.movieCard.id) {
+  //   props.savedFilms.map((c) => {
+  //     if (c.movieId === props.movieCard.id) {
   //       setIsLiked(true);
   //     }
   //   });
-  // }, [props.filteredBeatFilms]);
+  // }, []);
 
-  console.log(isLiked);
+
+  function handleChange() {
+    if(isLiked){
+      props.onDelMovie(props.movieCard);
+    }else if(!isLiked){
+      props.onAddMovie(props.movieCard);
+    }
+    setIsLiked(!isLiked);
+  }
+
+  function handleDeleteFromSaved() {
+    props.onDelFromSaved(props.movieCard);
+  }
+
   return (
     <section      
-      className={`${props.moviecardClosed ? "moviescard_hided" : "moviescard"}`}  
+      className={"moviescard"}  
     >
       <div className="moviescard__head-wrapper">
         
@@ -45,9 +46,7 @@ function MoviesCard(props) {
         {location.pathname === '/movies' && (
           <button
             onClick={
-              isLiked ?
-              handleUnlikeClick :
-              handleLikeClick
+              handleChange
             }
             type="button"
             className={`${isLiked ? "moviescard__head-icon_active" : "moviescard__head-icon" }`}
@@ -58,16 +57,10 @@ function MoviesCard(props) {
         {location.pathname === '/saved-movies' && (
           <button
             onClick={
-              props.buttonTypeClose ?
-              props.onClickCloseIcon :
-              handleLikeClick
+              handleDeleteFromSaved
             }
             type="button"
-            className={`${props.buttonTypeClose ?
-              "moviescard__close-icon" :
-              props.saved ?
-              "moviescard__head-icon_active" :
-              "moviescard__head-icon" }`}        
+            className={"moviescard__close-icon"}        
           ></button>
         )}       
       </div>
