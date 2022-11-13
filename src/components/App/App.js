@@ -25,7 +25,6 @@ import { Route, Switch, useHistory } from "react-router-dom";
 function App() {
   
   const history = useHistory();
-  
 
   const [isShorts, setShorts] = useState(false);
   
@@ -47,6 +46,8 @@ function App() {
 
   const [total, setTotal] = useState(3);
 
+  const [inputValue, setInputValue] = useState("");
+
   // изменение количества выдачи резултата поиска
   function handleTotal() {    
     setTotal(total+3);
@@ -56,6 +57,15 @@ function App() {
   //изменение состояния переключателя короткометражек
   function handleShorts() {    
     setShorts(!isShorts);
+    if(!isShorts){
+      const newList = (JSON.parse(localStorage.getItem("filteredBeatFilms"))).filter((movie) => {return movie.duration < 40;});
+      // console.log(newList);
+      setFilteredBeatFilms(newList);
+      localStorage.setItem("checkbox-value", "checked");
+    } else if (isShorts) {
+      setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+      localStorage.removeItem("checkbox-value");
+    }
   }
 
   function handleUpdateUser(name, email) {
@@ -137,14 +147,7 @@ function App() {
       console.log(err);
     });
   }, []);
-
- // получаем результаты поискового запроса, сохраненные в локальном хранилище
-  // useEffect(() => {
-  //   setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
-  //   console.log(JSON.parse(localStorage.getItem("filteredBeatFilms")));
-  // }, []);
-
-  
+ 
   //получаем массив сохраненных фильмов
   useEffect(() => {
     mainApi
@@ -200,26 +203,42 @@ function App() {
   //полезный эффект
   useEffect(() => {
     console.log(isShorts);
-    //setFilteredBeatFilms([]);
+    //setFilteredBeatFilms([]);    
   }, [isShorts]);
-
+  
+  // получаем результаты поискового запроса, сохраненные в локальном хранилище
+  useEffect(() => {
+    if(localStorage.getItem("filteredBeatFilms") && localStorage.getItem("checkbox-value")){
+      setShorts(true);
+      const newList = JSON.parse(localStorage.getItem("filteredBeatFilms")).filter(movie => movie.duration < 40);
+      //const newArr = newList.filter(movie => movie.duration < 40)
+      setFilteredBeatFilms(newList);
+      //console.log(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+    }else{
+      setShorts(false);
+      setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+    }
+  }, []);
   
   //фильтруем BeatFilms
   function handleMoviesFilter(arrayBeatFilms) {
+    setTotal(3);
     // console.log(searchInput);
-    console.log(arrayBeatFilms);
+    //console.log(arrayBeatFilms.filter((movie) => {return movie.duration < 40}));
 
     const inputLowerCase = searchInput.toLowerCase().trim();
     if (!isShorts) {
       const searchResult = arrayBeatFilms.filter((movie) => {
       const movieNameRU = movie.nameRU.toLowerCase().trim();
       return movieNameRU.indexOf(inputLowerCase) > -1;});
+
       localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
       setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
     } else if (isShorts) {
       const searchResult = arrayBeatFilms.filter((movie) => {      
       const movieNameRU = movie.nameRU.toLowerCase().trim();
       return movieNameRU.indexOf(inputLowerCase) > -1 && movie.duration < 40;});
+
       localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
       setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
     }
@@ -268,6 +287,8 @@ function App() {
               cards={cards}
               filmsToRender={filteredBeatFilms}
               savedFilms = {savedFilms}
+
+              inputValue={inputValue}
             /> 
 
             <Route path="/saved-movies">

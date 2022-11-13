@@ -52,6 +52,8 @@ function Movies(props) {
             savedFilms = {props.savedFilms}
 
             handleTotal={props.handleTotal}
+
+            inputValue={props.inputValue}
             
           />
         

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 
 import "./MoviesCard.css";
@@ -17,6 +17,16 @@ function MoviesCard(props) {
   //     }
   //   });
   // }, []);
+
+  function convertTime(min) {
+    const hours = Math.floor(min / 60);
+    const minutes = min % 60;
+    if(hours===0){
+      return `${minutes} мин.`;
+    }else{
+      return `${hours} час ${minutes} мин.`;
+    }
+  };
 
 
   function handleChange() {
@@ -40,7 +50,7 @@ function MoviesCard(props) {
         
         <div>
           <h4 className="moviescard__head">{props.movieCard.nameRU}</h4>
-          <p className="moviescard__subtitle">{props.movieCard.duration}</p>
+          <p className="moviescard__subtitle">{convertTime(props.movieCard.duration)}</p>
         </div>
 
         {location.pathname === '/movies' && (

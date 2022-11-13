@@ -21,6 +21,7 @@ function SearchForm(props) {
         <input
           onChange={handleChangeInputContent}
           required
+          //value={props.inputValue || ''}
           placeholder="Фильм"
           className="search-form__input"
           name="name"

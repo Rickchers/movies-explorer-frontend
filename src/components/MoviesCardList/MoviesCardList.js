@@ -23,7 +23,10 @@ function MoviesCardList(props) {
         //
         cards={props.cards}
 
+        inputValue={props.inputValue}
+
       />
+      {/* {(!props.filmsToRender.length === 0) && <p >Ничего не найдено</p>} */}
       <div className="moviescardlist__wrapper">
         <ul className="moviescardlist">
 
