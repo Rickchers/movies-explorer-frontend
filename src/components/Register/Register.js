@@ -4,27 +4,22 @@ import logo from "../../images/header__logo.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
+import useInput from "../../hooks/useInput.js"
+
 function Register(props) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
-
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-  }
+  
+  const userName = useInput("", {isEmpty: true, minLength: 2, isName: true});
+  const email = useInput("", {isEmpty: true, minLength: 3, isEmail: true,});
+  const password = useInput("", {isEmpty: true, minLength: 2});
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onRegister(name, email, password);
+    props.onRegister(userName.value, email.value, password.value);
   }
+
+  const myUserNameDiv = userName.result();
+  const myEmailDiv = email.result();
+  const myPasswordDiv = password.result();
 
   return (
     <section className="register__wrapper">
@@ -37,42 +32,65 @@ function Register(props) {
       </a>
       <h3 className="register__title">Добро пожаловать!</h3>
       
-      <form onSubmit={handleSubmit} className="register__form">
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        className="register__form">
         
         <span className="register__input-title">Имя</span>
         <input
-          onChange={handleChangeName}
-          className="register__input"
-          required
+          onChange={e => userName.onChange(e)}
+          onBlur={e => userName.onBlur(e)}
+          value={userName.value}
           placeholder=""
           name="name"
+          type="text"
+          className="register__input"
           minLength="2"
           maxLength="30"
+          required
         />
       
-
+        {myUserNameDiv}
       
         <span className="register__input-title">E-mail</span>
         <input
-          onChange={handleChangeEmail}
+          onChange={e => email.onChange(e)}
+          onBlur={e => email.onBlur(e)}
+          value={email.value}
+          placeholder= ""
+          name="email"
+          type="text"
           className="register__input"
           required
-          type="text"
-          name="email"
         />
+
+        {myEmailDiv}
 
         <span className="register__input-title">Пароль</span>
         <input
-          onChange={handleChangePassword}
-          className="register__input"
-          required
+          onChange={e => password.onChange(e)}
+          onBlur={e => password.onBlur(e)}
+          value={password.value}
+          placeholder= ""
+          name="password"
           type="password"
+          className="register__input"
           minLength="2"
           maxLength="200"
+          required
         />
-        <span className="register__input-error">Что-то пошло не так...</span>
 
-        <button type="submit" className="register__button">
+        {myPasswordDiv}
+
+        {/* <span className="register__input-error">Что-то пошло не так...</span> */}
+
+        <button
+          disabled={!email.inputValid || !password.inputValid || !userName.inputValid}
+          type="submit"
+          
+          className={ !email.inputValid || !password.inputValid || !userName.inputValid ? "register__button" : "register__button register__button_active"}
+        >
           Зарегистрироваться
         </button>
 

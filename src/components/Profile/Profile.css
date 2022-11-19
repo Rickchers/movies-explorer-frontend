@@ -20,13 +20,13 @@
 
 .profile__form-row:first-child {
   border-bottom: 1px solid #424242;
-  margin-bottom: 17px;
+  margin-bottom: 0px;
 }
 
 .profile__form-row {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 16px;
+  padding-bottom: 0px;
 }
 
 .profile__input {
@@ -60,6 +60,11 @@
   text-align: center;
   margin: 0 auto;
   display: block;
+  color: #404040;
+}
+
+.profile__edit-button_active {
+  color: #FFFFFF;
   cursor: pointer;
 }
 

@@ -1,0 +1,14 @@
+.error-wrapper {
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.input-error {
+  font-size: 10px;
+  line-height: 12px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  margin: 0;
+  color: red;
+}

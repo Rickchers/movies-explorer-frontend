@@ -1,30 +1,27 @@
 import "./Login.css";
 import logo from "../../images/header__logo.svg";
-
-import React, { useState } from "react";
-
+import React from "react";
 import { Link } from "react-router-dom";
 
+//импортируем модуль валидации форм
+import useInput from "../../hooks/useInput.js"
+
 function Login(props) {
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-  }
+  const email = useInput("", {isEmpty: true, minLength: 3, isEmail: true,});
+  const password = useInput("", {isEmpty: true, minLength: 2, maxLength: 200});
+  
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onLogin(email, password);
+    props.onLogin(email.value, password.value);
   }
+
+  const myEmailDiv = email.result();
+  const myPasswordDiv = password.result();
 
   return (
     <section className="login__wrapper">
+      
       <a href="/">
         <img
           className="login__logo"
@@ -35,30 +32,46 @@ function Login(props) {
       <h3 className="login__title">Рады видеть!</h3>
       
       <form
-        className="login__form"
         onSubmit={handleSubmit}
+        noValidate
+        className="login__form"
       >
         
-        <span className="login__input-title">E-mail</span>
+        <span className="login__input-title">E-mail</span>        
         <input
-          onChange={handleChangeEmail}
+          onChange={e => email.onChange(e)}
+          onBlur={e => email.onBlur(e)}
+          value={email.value}
+          placeholder= ""
+          name="email"
+          type="text"          
           className="login__input"
           required
-          type="text"
-          name="link"
         />
+        
+        {myEmailDiv}        
 
         <span className="login__input-title">Пароль</span>
         <input
-          onChange={handleChangePassword}
+          onChange={e => password.onChange(e)}
+          onBlur={e => password.onBlur(e)}
+          value={password.value}
+          placeholder= ""
+          name="password"
+          type="password"          
           className="login__input"
           required
-          type="password"
           minLength="2"
           maxLength="200"
         />
-
-        <button type="submit" className="login__button">
+        
+        {myPasswordDiv}
+        
+        <button
+          disabled={!email.inputValid || !password.inputValid}
+          type="submit"
+          className={ !email.inputValid || !password.inputValid ? "login__button" : "login__button login__button_active"}
+        >
           Войти
         </button>
 
