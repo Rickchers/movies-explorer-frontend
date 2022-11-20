@@ -26,6 +26,9 @@
   font-style: normal;
   font-weight: 500;
   max-width: 288px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .moviescard__image {

@@ -8,6 +8,7 @@ function SavedMovies(props) {
     <main className="savedmovies__wrapper">
       <MoviesCardList
         filmsToRender={props.filmsToRender}
+        savedFilms = {props.savedFilms}
         
         onDelFromSaved={props.onDelFromSaved}
       />

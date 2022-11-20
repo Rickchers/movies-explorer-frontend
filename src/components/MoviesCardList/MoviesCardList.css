@@ -21,6 +21,17 @@
   margin: 0 0 30px;
 }
 
+.moviescardlist__nothing-finded {
+  margin: 0;
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 16px;
+  padding-bottom: 40px;
+  color: #8b8b8b;
+}
+
 @media screen and (max-width: 768px) {
   .moviescardlist {
     grid-template-columns: repeat(auto-fill, minmax(320px, 340px));

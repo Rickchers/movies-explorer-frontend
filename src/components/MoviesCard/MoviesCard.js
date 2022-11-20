@@ -7,17 +7,18 @@ const URL = "https://api.nomoreparties.co/"
 
 
 function MoviesCard(props) {
-  const [isLiked, setIsLiked] = useState(false);
   const location = useLocation();
-
-  // useEffect(() => {
-  //   props.savedFilms.map((c) => {
-  //     if (c.movieId === props.movieCard.id) {
-  //       setIsLiked(true);
-  //     }
-  //   });
-  // }, []);
-
+  
+  const [isLiked, setIsLiked] = useState(false);
+  
+  useEffect(() => {
+    props.savedFilms.map((c) => {
+      if (c.movieId === props.movieCard.id) {
+        setIsLiked(true);
+      }
+    });
+  }, [props.savedFilms]);
+  
   function convertTime(min) {
     const hours = Math.floor(min / 60);
     const minutes = min % 60;

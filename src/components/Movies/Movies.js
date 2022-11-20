@@ -46,6 +46,7 @@ function Movies(props) {
             //поиск фильма
             handleFilter={props.handleFilter}
             setSearchInput={props.setSearchInput}
+            searchInput={props.searchInput}
 
             //все фильмы BeatFilms
             cards={props.cards}
@@ -53,7 +54,7 @@ function Movies(props) {
 
             handleTotal={props.handleTotal}
 
-            inputValue={props.inputValue}
+           
             
           />
         

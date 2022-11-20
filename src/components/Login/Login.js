@@ -1,6 +1,6 @@
+import React from "react";
 import "./Login.css";
 import logo from "../../images/header__logo.svg";
-import React from "react";
 import { Link } from "react-router-dom";
 
 //импортируем модуль валидации форм

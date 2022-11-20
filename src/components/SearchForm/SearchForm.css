@@ -78,6 +78,21 @@
 
 }
 
+.search-form__keyword-wrapper {
+  height: 20px;
+  padding-bottom: 20px;
+}
+
+.search-form__keyword {
+  margin: 0;
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 16px;
+  color: #8b8b8b;
+}
+
 @media screen and (max-width: 768px) {
   .search-form {
     margin: 70px 30px 26px;

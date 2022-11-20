@@ -5,6 +5,7 @@ import "./useInput.css";
 const useValidation = (value, validations) => {
   const [isEmpty, setEmpty] = useState(true);
   const [minLengthError, setMinLengthError] = useState(false);
+  const [maxLengthError, setMaxLengthError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [inputValid, setInputValid] = useState(false);
   const [nameError, setNameError] = useState(false);
@@ -39,16 +40,17 @@ const useValidation = (value, validations) => {
   }, [value]);
 
   useEffect(() => {
-    if(isEmpty || minLengthError || emailError) {
+    if(isEmpty || maxLengthError || minLengthError || emailError) {
       setInputValid(false);
     } else {
       setInputValid(true);
     }
-  }, [isEmpty, minLengthError, emailError])
+  }, [isEmpty, maxLengthError, minLengthError, emailError])
 
   return {
     isEmpty,
     minLengthError,
+    maxLengthError,
     emailError,
     nameError,
     inputValid

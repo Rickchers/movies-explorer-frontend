@@ -1,4 +1,7 @@
+import React, { useState, useEffect } from "react";
+import { Route, Switch, useHistory } from "react-router-dom";
 import './App.css';
+
 import Main from "../Main/Main"
 import Movies from "../Movies/Movies";
 import Header from "../Header/Header";
@@ -18,13 +21,12 @@ import { moviesApi } from "../../utils/MoviesApi";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 
-import React, { useState, useEffect } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
 
 
-function App() {
-  
+function App() {  
   const history = useHistory();
+
+  
 
   const [isShorts, setShorts] = useState(false);
   
@@ -34,7 +36,6 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   
-  //=====================
   const [savedFilms, setSavedFilms] = useState([]);
   
   //поиск по фильмам BeatFilms
@@ -46,9 +47,7 @@ function App() {
 
   const [total, setTotal] = useState(3);
 
-  const [inputValue, setInputValue] = useState("");
-
-  // изменение количества выдачи резултата поиска
+  // изменение количества выдачи результата поиска
   function handleTotal() {    
     setTotal(total+3);
   }
@@ -110,12 +109,10 @@ function App() {
     setLoggedIn(false);
     history.push("/");
   }  
-
+  //токен чек
   useEffect(() => {
     tokenCheck();
   }, []);
-  
-
 
   // проверка токена
   function tokenCheck() {
@@ -135,6 +132,7 @@ function App() {
       });
     }
   }
+
   // получаем массив BeatFilms
   useEffect(() => {
     setLoading(true);
@@ -158,17 +156,10 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-  }, []);
-
+  }, []);  
   
-  //===================================================================
-
-
   //сохранить карточку в базе
   function addMovie(movieCard) {
-    // console.log('add');
-    // console.log(movieCard);
-    
     mainApi
       .saveMovie(movieCard)
       .then((newMovieCard) => {
@@ -176,9 +167,9 @@ function App() {
         
       })
       .then(console.log(savedFilms))
-      .catch((err) => console.log(err));
-     
+      .catch((err) => console.log(err));     
   }
+  
   //удалить карточку из базы
   function findCardId(c){
     const findedCard = savedFilms.find((item) => item.movieId === c.id);
@@ -198,13 +189,13 @@ function App() {
       .then(res => setSavedFilms(savedFilms.filter((item) => item._id !== res._id)))
       .catch((err) => console.log(err));
   }
+  //========================================================
 
 
   //полезный эффект
-  useEffect(() => {
-    console.log(isShorts);
-    //setFilteredBeatFilms([]);    
-  }, [isShorts]);
+  // useEffect(() => {
+  //   console.log(isShorts);   
+  // }, [isShorts]);
   
   // получаем результаты поискового запроса, сохраненные в локальном хранилище
   useEffect(() => {
@@ -223,10 +214,8 @@ function App() {
   //фильтруем BeatFilms
   function handleMoviesFilter(arrayBeatFilms) {
     setTotal(3);
-    // console.log(searchInput);
-    //console.log(arrayBeatFilms.filter((movie) => {return movie.duration < 40}));
-
     const inputLowerCase = searchInput.toLowerCase().trim();
+
     if (!isShorts) {
       const searchResult = arrayBeatFilms.filter((movie) => {
       const movieNameRU = movie.nameRU.toLowerCase().trim();
@@ -234,6 +223,7 @@ function App() {
 
       localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
       setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+
     } else if (isShorts) {
       const searchResult = arrayBeatFilms.filter((movie) => {      
       const movieNameRU = movie.nameRU.toLowerCase().trim();
@@ -247,11 +237,8 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="App">
-
-          
+      <div className="App">          
           <Switch>
-
             <Route exact path="/">
               <Header isLoggedIn={isLoggedIn}/>
               <Main />
@@ -260,12 +247,11 @@ function App() {
 
             <ProtectedRoute
               path="/movies"
+              component={Movies}
+              
               isLoggedIn={true}
               loading={loading}
 
-              component={Movies}
-
-              
               total={total}
               handleTotal={handleTotal}
               
@@ -274,21 +260,18 @@ function App() {
               
               //добавление/удаление фильма
               onAddMovie={addMovie}
-              onDelMovie={deleteMovie}
-
-              
+              onDelMovie={deleteMovie}              
 
               //поиск фильма
               handleFilter={handleMoviesFilter}
               //movieCards={findedMovies}
               setSearchInput={setSearchInput}
+              searchInput={searchInput}
 
               //
               cards={cards}
               filmsToRender={filteredBeatFilms}
               savedFilms = {savedFilms}
-
-              inputValue={inputValue}
             /> 
 
             <Route path="/saved-movies">
@@ -297,6 +280,7 @@ function App() {
               />
               <SavedMovies
                 filmsToRender = {savedFilms}
+                savedFilms = {savedFilms}
                 onDelFromSaved={deleteMovieFromSaved}
               />
               <Footer />

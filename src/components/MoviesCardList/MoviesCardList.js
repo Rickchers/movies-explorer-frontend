@@ -16,17 +16,16 @@ function MoviesCardList(props) {
 
         onSearch={props.onSearch}
         setSearchInput={props.setSearchInput}
+        searchInput={props.searchInput}
 
         //поиск фильма
         handleFilter={props.handleFilter}
+        filmsToRender={props.filmsToRender}
 
         //
         cards={props.cards}
-
-        inputValue={props.inputValue}
-
       />
-      {/* {(!props.filmsToRender.length === 0) && <p >Ничего не найдено</p>} */}
+      
       <div className="moviescardlist__wrapper">
         <ul className="moviescardlist">
 
@@ -41,8 +40,7 @@ function MoviesCardList(props) {
 
                     movieCard={movieCard}
 
-                    savedFilms = {props.savedFilms}
-                    // moviecardClosed={props.moviecardClosed}                    
+                    savedFilms = {props.savedFilms}                
                     
                     //добавление/удаление фильма
                     onAddMovie={props.onAddMovie} 

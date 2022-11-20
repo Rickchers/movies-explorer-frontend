@@ -71,6 +71,7 @@
 .profile__edit-button_colored {
   color: #EE3465;
   margin-top: 16px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 320px) {
