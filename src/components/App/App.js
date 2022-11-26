@@ -16,17 +16,55 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 //API
 import * as mainApi from "../../utils/MainApi";
 import { moviesApi } from "../../utils/MoviesApi";
-
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 
+function App() {
+
+//----------------------------------------------------------------------
+  // состояние количества карточек в группе
+  const [totalDisplayCards, setTotalDisplayCards] = useState(0);
+
+  // функция изменения количества выдачи результата поиска
+  function handleTotal() {setTotalDisplayCards(totalDisplayCards + addShowCards)}
+
+  // Стейт количества карточек для добавления
+  const [addShowCards, setAddShowCards] = useState(0);
 
 
-function App() {  
+  useEffect(() => {
+    if(window.innerWidth > 1279) {
+      setTotalDisplayCards(12);
+      setAddShowCards(3);
+    } else if (window.innerWidth > 767) {
+      setTotalDisplayCards(8);
+      setAddShowCards(2);
+    } else if (window.innerWidth > 479) {
+      setTotalDisplayCards(5);
+      setAddShowCards(2);
+    }
+  }, []);  
+
+
+  // при изменении штрины дисплея устройства
+  window.onresize = () => {
+    if (window.innerWidth > 1279) {
+      setAddShowCards(3);
+    } else {
+      setAddShowCards(2);
+    }
+  };
+
+//----------------------------------------------------------------------
+
+
   const history = useHistory();
   
   //состояние массива фильмов для рендера в сохранённых фильмах
   const [filmsToRenderInSavedFilms, setFilmsToRenderInSavedFilms] = useState([]);
+
+  //состояние массива фильмов для рендера в фильмах
+  const [filmsToRenderInFilms, setFilmsToRenderInFilms] = useState([]);
 
   //состояние переключателя короткометражек
   const [isShorts, setShorts] = useState(false);
@@ -44,7 +82,7 @@ function App() {
   const [savedFilms, setSavedFilms] = useState([]);
 
   //поиск по фильмам BeatFilms
-  const [filteredBeatFilms, setFilteredBeatFilms] = useState([]);
+  //const [filteredBeatFilms, setFilteredBeatFilms] = useState([]);
 
   //управляемый инпут поиска  
   const [searchInput, setSearchInput] = useState([]); 
@@ -55,11 +93,6 @@ function App() {
   //состояние сообщения ошибки регистрации 
   const [registerError, setRegisterError] = useState(false);
 
-  //количестово выдачи карточек
-  const [total, setTotal] = useState(3);
-
-  // изменение количества выдачи результата поиска
-  function handleTotal() {setTotal(total+3)}
 
   //запрос к апи на изменение данных пользователя
   function handleUpdateUser(name, email) {    
@@ -74,7 +107,7 @@ function App() {
     history.goBack();
   }
 
-  //====================mainApi==========================
+  //-----------------------------mainApi----------------------------------
   // регистрация
   function handleRegister(name, email, password) {
     mainApi.register(name, email, password).then(
@@ -98,16 +131,12 @@ function App() {
       .catch((err) => console.log(err));
             
   }
-
-  useEffect(() => {
-    console.log(isLoggedIn)
-
-  },[isLoggedIn]
-  )
   
   // выход
   function handleSignOut() {    
     localStorage.removeItem("token");
+    localStorage.removeItem("checkbox-value");
+    localStorage.removeItem("filteredBeatFilms");
     setLoggedIn(false);
     history.push("/");    
   }
@@ -136,28 +165,32 @@ function App() {
 
   // получаем массив BeatFilms
   useEffect(() => {
-    setLoading(true);
-    moviesApi.getMovies()
-    .then((res) => {
-      setCards(res);
-    })
-    .then(() => setLoading(false))
-    .catch((err) => {
-      console.log(err);
-    });
+    
+      setLoading(true);
+      moviesApi.getMovies()
+      .then((res) => {
+        setCards(res);
+      })
+      .then(() => setLoading(false))
+      .catch((err) => {
+        console.log(err);
+      });
+    
   }, []);
  
   //получаем массив сохраненных фильмов
   useEffect(() => {
-    mainApi
-      .getMovies()    
-      .then((res) => {
-        setSavedFilms(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }, []);  
+    if(isLoggedIn){
+      mainApi
+        .getMovies()    
+        .then((res) => {
+          setSavedFilms(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }, [isLoggedIn]);  
   
   //выводим на рендер массив сохраненных фильмов
   useEffect(() => {
@@ -195,35 +228,37 @@ function App() {
       .then(res => setSavedFilms(savedFilms.filter((item) => item._id !== res._id)))
       .catch((err) => console.log(err));
   }
-  //========================================================
+  //----------------------------------------------------------------------
+  
   
   // получаем результаты поискового запроса, сохраненные в локальном хранилище
   useEffect(() => {
     if(localStorage.getItem("filteredBeatFilms") && localStorage.getItem("checkbox-value")){
       setShorts(true);
       const newList = JSON.parse(localStorage.getItem("filteredBeatFilms")).filter(movie => movie.duration < 40);
-      //const newArr = newList.filter(movie => movie.duration < 40)
-      setFilteredBeatFilms(newList);
+      
+      setFilmsToRenderInFilms(newList);
       //console.log(JSON.parse(localStorage.getItem("filteredBeatFilms")));
     }else{
       setShorts(false);
-      setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+      setFilmsToRenderInFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
     }
   }, []);
-
+  
+  
   //изменение состояния переключателя короткометражек
   function handleShorts() {    
     setShorts(!isShorts);
     if(!isShorts){
       const newList = (JSON.parse(localStorage.getItem("filteredBeatFilms"))).filter((movie) => {return movie.duration < 40;});
-      setFilteredBeatFilms(newList);
+      setFilmsToRenderInFilms(newList);
       localStorage.setItem("checkbox-value", "checked");
     } else if (isShorts) {
-      setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+      setFilmsToRenderInFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
       localStorage.removeItem("checkbox-value");
     }
   }
-
+  
 
   //изменение состояния переключателя короткометражек в "Сохранённых фильмах"
   function handleShortsSaved() {    
@@ -236,43 +271,13 @@ function App() {
       setFilmsToRenderInSavedFilms(savedFilms);
     }
   }
-  
-  //функция поиска по фильмам BeatFilms
-  // function handleMoviesFilter(arrayBeatFilms) {
-  //   setTotal(3);
-  //   const inputLowerCase = searchInput.toLowerCase().trim();
-
-  //   if (!isShorts)
-  //   {
-  //     const searchResult = arrayBeatFilms.filter((movie) => {
-  //       const movieNameRU = movie.nameRU.toLowerCase().trim();
-  //       return movieNameRU.indexOf(inputLowerCase) > -1;
-  //     });
-
-  //     localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
-  //     setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
-
-  //   } 
     
-  //   else if (isShorts)
-  //   {
-  //     const searchResult = arrayBeatFilms.filter((movie) => {      
-  //     const movieNameRU = movie.nameRU.toLowerCase().trim();
-  //     return movieNameRU.indexOf(inputLowerCase) > -1 && movie.duration < 40;});
-
-  //     localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
-  //     setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
-  //   }
-    
-  // }
-  
   //функция поиска по фильмам BeatFilms
   function handleMoviesFilter(arrayBeatFilms) {
-    setTotal(3);
     
     //приводим к нижнему регистру строку поискового запроса
     const inputLowerCase = searchInput.toLowerCase().trim();    
-
+    
     const searchResult = arrayBeatFilms.filter((movie) => {
       const movieNameRU = movie.nameRU.toLowerCase().trim();
       return !isShorts
@@ -281,9 +286,12 @@ function App() {
       :
       movieNameRU.indexOf(inputLowerCase) > -1 && movie.duration < 40;
     });
+    console.log(searchResult);
 
-    localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
-    setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));    
+    //выводим на рендер результат поиска в сохранённых фильмах
+    setFilmsToRenderInFilms(searchResult);
+        
+    localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));    
   }  
 
   //функция поиска по сохранённым фильмам
@@ -301,12 +309,12 @@ function App() {
       movieNameRU.indexOf(inputLowerCase) > -1 && movie.duration < 40;
     });
     
-    //выводим на рендер в сохранённых фильмах результат поиска
+    //выводим на рендер результат поиска в сохранённых фильмах
     setFilmsToRenderInSavedFilms(searchResult);
 
   }
 
-  useEffect(() => {console.log(isLoggedIn)}, []);
+  // useEffect(() => {console.log(isLoggedIn)}, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -322,7 +330,7 @@ function App() {
               
               loading={loading}
 
-              total={total}
+              total={totalDisplayCards}
               handleTotal={handleTotal}
               
               shortsButtonActive={isShorts}
@@ -341,8 +349,9 @@ function App() {
 
               //
               arrayForSearching={cards}
-              //
-              filmsToRender={filteredBeatFilms}
+              //filmsToRender={filteredBeatFilms}
+              
+              filmsToRender={filmsToRenderInFilms}
               savedFilms = {savedFilms}
             /> 
 

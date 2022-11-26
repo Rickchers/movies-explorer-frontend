@@ -10,27 +10,11 @@ function MoviesCardList(props) {
   
   return (
     <section>
-
-      {/* <SearchForm
-        onClickShortsButton={props.onClickShortsButton}
-        shortsButtonActive={props.shortsButtonActive}
-
-        onSearch={props.onSearch}
-        setSearchInput={props.setSearchInput}
-        searchInput={props.searchInput}
-
-        //поиск фильма
-        handleFilter={props.handleFilter}
-        filmsToRender={props.filmsToRender}
-
-        //
-        cards={props.cards}
-      /> */}
-      
+            
       <div className="moviescardlist__wrapper">
         <ul className="moviescardlist">
 
-          {props.filmsToRender.slice(0, props.total).map((movieCard, i) => {
+          {(props.filmsToRender) && props.filmsToRender.slice(0, props.total).map((movieCard, i) => {
             
             return (
               <li key={i} className="moviescardlist__list">
@@ -58,7 +42,7 @@ function MoviesCardList(props) {
           })}
         </ul>        
       </div>
-      {props.total < props.filmsToRender.length
+      {(props.filmsToRender) && (props.total < props.filmsToRender.length)
       &&
       <MoreButton
         handleTotal={props.handleTotal}

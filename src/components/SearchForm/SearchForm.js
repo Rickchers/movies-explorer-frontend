@@ -10,10 +10,10 @@ function SearchForm(props) {
     isEmpty ? setErrorMessage("Нужно ввести ключевое слово") : setErrorMessage("");
   }, [isEmpty])
 
-  useEffect(() => {
-    console.log(props.filmsToRender.length);
-    props.filmsToRender.length === 0 ? setErrorMessage("Ничего не найдено") : setErrorMessage("");
-  }, [props.filmsToRender.length])
+  // useEffect(() => {
+  //   console.log(props.filmsToRender.length);
+  //   props.filmsToRender.length === 0 ? setErrorMessage("Ничего не найдено") : setErrorMessage("");
+  // }, [props.filmsToRender.length])
 
   
   function handleInput(e) {

@@ -107,3 +107,33 @@
     //   setfindedMovies(res);
     // })
     // .catch((err) => console.log(err));
+//---------------------------------------------------
+  //старая функция поиска по фильмам BeatFilms
+  // function handleMoviesFilter(arrayBeatFilms) {
+  //   setTotal(3);
+  //   const inputLowerCase = searchInput.toLowerCase().trim();
+
+  //   if (!isShorts)
+  //   {
+  //     const searchResult = arrayBeatFilms.filter((movie) => {
+  //       const movieNameRU = movie.nameRU.toLowerCase().trim();
+  //       return movieNameRU.indexOf(inputLowerCase) > -1;
+  //     });
+
+  //     localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
+  //     setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+
+  //   } 
+    
+  //   else if (isShorts)
+  //   {
+  //     const searchResult = arrayBeatFilms.filter((movie) => {      
+  //     const movieNameRU = movie.nameRU.toLowerCase().trim();
+  //     return movieNameRU.indexOf(inputLowerCase) > -1 && movie.duration < 40;});
+
+  //     localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
+  //     setFilteredBeatFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+  //   }
+    
+  // }
+//----------------------------------------------------
