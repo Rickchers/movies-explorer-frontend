@@ -1,18 +1,36 @@
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import SearchForm from "../SearchForm/SearchForm"
 
 import "./SavedMovies.css";
 
 function SavedMovies(props) {
   
   return (
-    <main className="savedmovies__wrapper">
-      <MoviesCardList
+    <>
+      <SearchForm
+        onClickShortsButton={props.onClickShortsButton}
+        shortsButtonActive={props.shortsButtonActive}
+
+        onSearch={props.onSearch}
+        setSearchInput={props.setSearchInput}
+        searchInput={props.searchInput}
+
+        //поиск фильма
+        handleFilter={props.handleFilter}
         filmsToRender={props.filmsToRender}
-        savedFilms = {props.savedFilms}
-        
-        onDelFromSaved={props.onDelFromSaved}
+
+        //
+        arrayForSearching={props.arrayForSearching}
       />
-    </main>
+      <main className="savedmovies__wrapper">
+        <MoviesCardList
+          filmsToRender={props.filmsToRender}
+          savedFilms = {props.savedFilms}
+          
+          onDelFromSaved={props.onDelFromSaved}
+        />
+      </main>    
+    </>
   )
 }
 

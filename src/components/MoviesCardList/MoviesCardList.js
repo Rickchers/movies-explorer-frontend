@@ -2,7 +2,7 @@ import React from "react";
 
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard"
-import SearchForm from "../SearchForm/SearchForm"
+// import SearchForm from "../SearchForm/SearchForm"
 
 import MoreButton from "../MoreButton/MoreButton";
 
@@ -10,7 +10,8 @@ function MoviesCardList(props) {
   
   return (
     <section>
-      <SearchForm
+
+      {/* <SearchForm
         onClickShortsButton={props.onClickShortsButton}
         shortsButtonActive={props.shortsButtonActive}
 
@@ -24,7 +25,7 @@ function MoviesCardList(props) {
 
         //
         cards={props.cards}
-      />
+      /> */}
       
       <div className="moviescardlist__wrapper">
         <ul className="moviescardlist">

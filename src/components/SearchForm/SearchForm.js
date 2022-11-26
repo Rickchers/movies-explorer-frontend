@@ -16,7 +16,7 @@ function SearchForm(props) {
   }, [props.filmsToRender.length])
 
   
-  function handleChangeInputContent(e) {
+  function handleInput(e) {
     props.setSearchInput(e.target.value);
   }
 
@@ -27,7 +27,7 @@ function SearchForm(props) {
       setEmpty(true);
     } else {
       setEmpty(false);
-      props.handleFilter(props.cards);
+      props.handleFilter(props.arrayForSearching);
     }
   }
 
@@ -43,7 +43,7 @@ function SearchForm(props) {
       >
         
         <input
-          onChange={handleChangeInputContent}
+          onChange={handleInput}
           required
           
           placeholder="Фильм"

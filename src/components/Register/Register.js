@@ -75,7 +75,7 @@ function Register(props) {
           placeholder= ""
           name="password"
           type="password"
-          className="register__input"
+          className= {props.registerError ? "register__input register__input_bad" : "register__input"}
           minLength="2"
           maxLength="200"
           required
@@ -83,7 +83,7 @@ function Register(props) {
 
         {myPasswordDiv}
 
-        {/* <span className="register__input-error">Что-то пошло не так...</span> */}
+        { props.registerError && <span className="register__input-error">Что-то пошло не так...</span> }
 
         <button
           disabled={!email.inputValid || !password.inputValid || !userName.inputValid}

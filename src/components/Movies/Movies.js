@@ -6,15 +6,12 @@ import "./Movies.css";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import SearchForm from "../SearchForm/SearchForm"
 
 import Preloader from "../Preloader/Preloader";
 
 
 function Movies(props) {
-  // function handleMore() {
-  //   //console.log(props.total);
-  //   props.handleTotal();
-  // }
 
   return (
     <main>
@@ -22,6 +19,23 @@ function Movies(props) {
       <Header
         isLoggedIn={props.isLoggedIn}
       />
+
+      <SearchForm
+        onClickShortsButton={props.onClickShortsButton}
+        shortsButtonActive={props.shortsButtonActive}
+
+        onSearch={props.onSearch}
+        setSearchInput={props.setSearchInput}
+        searchInput={props.searchInput}
+
+        //поиск фильма
+        handleFilter={props.handleFilter}
+        filmsToRender={props.filmsToRender}
+
+        //
+        arrayForSearching={props.arrayForSearching}
+      />
+
       <div className="movies__wrapper">
 
         
@@ -57,17 +71,6 @@ function Movies(props) {
            
             
           />
-        
-
-        {/* <div className="movies__button-wrapper">
-          <button
-            type="button"
-            onClick={handleMore}
-            className="movies__button-more"
-          >
-            Ещё
-          </button>
-        </div> */}
       </div>
       <Footer />
 

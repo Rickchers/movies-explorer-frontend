@@ -39,9 +39,9 @@
   flex-direction: column;
 }
 
-.register__form > .register__input:nth-last-of-type(1) {
+/* .register__form > .register__input:nth-last-of-type(1) {
   color: #EE3465;
-}
+} */
 
 .register__input {
   all: unset;
@@ -60,6 +60,10 @@
   margin: 10px 0 0px;
   border-radius: 8px;
   background-color: #2f2f2f;
+}
+
+.register__input_bad {
+  color: #EE3465;
 }
 
 .register__button {
