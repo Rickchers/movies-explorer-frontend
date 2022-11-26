@@ -6,5 +6,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 https://disk.yandex.ru/d/ZiF2HzZpWS_dTA
 
-## ССылка на pull-request
+## Ссылка на pull-request
 https://github.com/Rickchers/movies-explorer-frontend/pull/3#issue-1465172298
+
+## Ссылка на сайт
+https://rickchers.diplom.nomorepartiesxyz.ru/
