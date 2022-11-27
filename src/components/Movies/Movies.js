@@ -34,6 +34,9 @@ function Movies(props) {
 
         //
         arrayForSearching={props.arrayForSearching}
+
+        errorMessage={props.errorMessage}
+        setErrorMessage={props.setErrorMessage}
       />
 
       <div className="movies__wrapper">
@@ -67,6 +70,8 @@ function Movies(props) {
             savedFilms = {props.savedFilms}
 
             handleTotal={props.handleTotal}
+
+            
 
            
             

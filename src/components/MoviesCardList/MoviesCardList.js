@@ -2,7 +2,6 @@ import React from "react";
 
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard"
-// import SearchForm from "../SearchForm/SearchForm"
 
 import MoreButton from "../MoreButton/MoreButton";
 
@@ -13,7 +12,7 @@ function MoviesCardList(props) {
             
       <div className="moviescardlist__wrapper">
         <ul className="moviescardlist">
-
+          
           {(props.filmsToRender) && props.filmsToRender.slice(0, props.total).map((movieCard, i) => {
             
             return (

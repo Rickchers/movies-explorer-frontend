@@ -1,21 +1,8 @@
 import { React, useState, useEffect } from "react";
 import "./SearchForm.css";
 
-function SearchForm(props) {
-  
-  const [isEmpty, setEmpty] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-
-  useEffect(() => {
-    isEmpty ? setErrorMessage("Нужно ввести ключевое слово") : setErrorMessage("");
-  }, [isEmpty])
-
-  // useEffect(() => {
-  //   console.log(props.filmsToRender.length);
-  //   props.filmsToRender.length === 0 ? setErrorMessage("Ничего не найдено") : setErrorMessage("");
-  // }, [props.filmsToRender.length])
-
-  
+function SearchForm(props) {  
+ 
   function handleInput(e) {
     props.setSearchInput(e.target.value);
   }
@@ -24,9 +11,12 @@ function SearchForm(props) {
     e.preventDefault();
     
     if (props.searchInput.length === 0) {
-      setEmpty(true);
+      
+      props.setErrorMessage("Нужно ввести ключевое слово")
+      
+      
     } else {
-      setEmpty(false);
+      
       props.handleFilter(props.arrayForSearching);
     }
   }
@@ -71,7 +61,7 @@ function SearchForm(props) {
         <p className="search-form__shorts-name">Короткометражки</p>
       </div>
       <div className="search-form__keyword-wrapper">
-        <p className="search-form__keyword">{errorMessage}</p>
+        <p className="search-form__keyword">{props.errorMessage}</p>
       </div>
 
     </div>

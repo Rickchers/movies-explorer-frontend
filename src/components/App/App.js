@@ -28,7 +28,7 @@ function App() {
   // функция изменения количества выдачи результата поиска
   function handleTotal() {setTotalDisplayCards(totalDisplayCards + addShowCards)}
 
-  // Стейт количества карточек для добавления
+  // состояние количества карточек для добавления
   const [addShowCards, setAddShowCards] = useState(0);
 
 
@@ -59,6 +59,9 @@ function App() {
 
 
   const history = useHistory();
+  
+  //сообщение ничего не найдено
+  const [errorMessage, setErrorMessage] = useState("");
   
   //состояние массива фильмов для рендера в сохранённых фильмах
   const [filmsToRenderInSavedFilms, setFilmsToRenderInSavedFilms] = useState([]);
@@ -144,7 +147,7 @@ function App() {
   // проверка токена  
   useEffect(() => {
     tokenCheck();
-  }, [isLoggedIn]);
+  }, []);
   
   function tokenCheck() {
     const token = localStorage.getItem("token");
@@ -286,7 +289,10 @@ function App() {
       :
       movieNameRU.indexOf(inputLowerCase) > -1 && movie.duration < 40;
     });
-    console.log(searchResult);
+
+    console.log(searchInput);
+    if (searchResult.length === 0) {setErrorMessage("Ничего не найдено")};
+    //if (!searchInput) {setErrorMessage("Нужно ввести ключевое слово")};
 
     //выводим на рендер результат поиска в сохранённых фильмах
     setFilmsToRenderInFilms(searchResult);
@@ -314,13 +320,12 @@ function App() {
 
   }
 
-  // useEffect(() => {console.log(isLoggedIn)}, []);
+ useEffect(() => {console.log(isLoggedIn)}, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">          
           <Switch>
-
 
             <ProtectedRoute
               isLoggedIn={true}
@@ -352,6 +357,9 @@ function App() {
               //filmsToRender={filteredBeatFilms}
               
               filmsToRender={filmsToRenderInFilms}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+              
               savedFilms = {savedFilms}
             /> 
 
