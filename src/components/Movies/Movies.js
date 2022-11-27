@@ -12,7 +12,7 @@ import Preloader from "../Preloader/Preloader";
 
 
 function Movies(props) {
-
+  
   return (
     <main>
       {props.loading && <Preloader />}

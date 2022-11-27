@@ -21,6 +21,8 @@ function SavedMovies(props) {
 
         //
         arrayForSearching={props.arrayForSearching}
+        errorMessage={props.errorMessage}
+        setErrorMessage={props.setErrorMessage}
       />
       <main className="savedmovies__wrapper">
         <MoviesCardList

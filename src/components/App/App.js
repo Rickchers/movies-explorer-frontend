@@ -144,28 +144,6 @@ function App() {
     history.push("/");    
   }
     
-  // проверка токена  
-  useEffect(() => {
-    tokenCheck();
-  }, []);
-  
-  function tokenCheck() {
-    const token = localStorage.getItem("token");
-    if (token) {
-      mainApi.getContent(token).then((res) => {      
-        if (res) {
-          setLoggedIn(true);
-          setCurrentUser(res);
-          //history.push("/");
-        }
-      })
-      .catch((err) => {
-        console.log(err);        
-      });
-    }
-  }
-  
-
   // получаем массив BeatFilms
   useEffect(() => {
     
@@ -319,8 +297,29 @@ function App() {
     setFilmsToRenderInSavedFilms(searchResult);
 
   }
+  
+  // проверка токена  
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+  
+  function tokenCheck() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      mainApi.getContent(token).then((res) => {      
+        if (res) {
+          setLoggedIn(true);
+          setCurrentUser(res);
+          //history.push("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);        
+      });
+    }
+  }
 
- useEffect(() => {console.log(isLoggedIn)}, [isLoggedIn]);
+  useEffect(() => {console.log(isLoggedIn)}, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -328,10 +327,10 @@ function App() {
           <Switch>
 
             <ProtectedRoute
-              isLoggedIn={true}
               path="/movies"
-
+              isLoggedIn={true}
               component={Movies}
+
               
               loading={loading}
 
@@ -389,6 +388,8 @@ function App() {
                 onDelFromSaved={deleteMovieFromSaved}
 
                 arrayForSearching={savedFilms}
+                errorMessage={errorMessage}
+                setErrorMessage={setErrorMessage}
               />
               <Footer />
             </Route>

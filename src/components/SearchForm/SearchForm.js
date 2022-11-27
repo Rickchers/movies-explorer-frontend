@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React } from "react";
 import "./SearchForm.css";
 
 function SearchForm(props) {  
@@ -16,7 +16,7 @@ function SearchForm(props) {
       
       
     } else {
-      
+      props.setErrorMessage("");
       props.handleFilter(props.arrayForSearching);
     }
   }
