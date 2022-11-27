@@ -268,9 +268,9 @@ function App() {
       movieNameRU.indexOf(inputLowerCase) > -1 && movie.duration < 40;
     });
 
-    console.log(searchInput);
+    
     if (searchResult.length === 0) {setErrorMessage("Ничего не найдено")};
-    //if (!searchInput) {setErrorMessage("Нужно ввести ключевое слово")};
+    
 
     //выводим на рендер результат поиска в сохранённых фильмах
     setFilmsToRenderInFilms(searchResult);
@@ -293,6 +293,8 @@ function App() {
       movieNameRU.indexOf(inputLowerCase) > -1 && movie.duration < 40;
     });
     
+    if (searchResult.length === 0) {setErrorMessage("Ничего не найдено")};
+
     //выводим на рендер результат поиска в сохранённых фильмах
     setFilmsToRenderInSavedFilms(searchResult);
 
