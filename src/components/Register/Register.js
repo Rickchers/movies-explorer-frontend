@@ -2,7 +2,6 @@ import "./Register.css"
 import logo from "../../images/header__logo.svg";
 
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 import useInput from "../../hooks/useInput.js"
 
@@ -23,13 +22,13 @@ function Register(props) {
 
   return (
     <section className="register__wrapper">
-      <a href="/">
+      <Link to="/">
         <img
           className="register__logo"
           src={logo}
           alt="logo"
         />
-      </a>
+      </Link>
       <h3 className="register__title">Добро пожаловать!</h3>
       
       <form

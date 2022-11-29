@@ -33,7 +33,7 @@ function Movies(props) {
         filmsToRender={props.filmsToRender}
 
         //
-        arrayForSearching={props.arrayForSearching}
+        //arrayForSearching={props.arrayForSearching}
 
         errorMessage={props.errorMessage}
         setErrorMessage={props.setErrorMessage}

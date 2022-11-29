@@ -15,7 +15,7 @@
 }
 
 .profile__form {
-  margin-bottom: 220px;
+  margin-bottom: 140px;
 }
 
 .profile__form-row:first-child {
@@ -49,6 +49,21 @@
   font-style: normal;
   font-weight: 400;
   text-align: left;
+}
+
+.profile__changed-wrapper {
+  height: 30px;
+}
+
+.profile__changed {
+  margin: 0;
+  margin-bottom: 80px;
+  font-size: 12px;
+  line-height: 13px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: center;
+  color: #FFFFFF;
 }
 
 .profile__edit-button {

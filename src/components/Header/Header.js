@@ -1,9 +1,11 @@
+import { React, useState } from "react";
+import { Link } from "react-router-dom";
+
 import "./Header.css";
 import logo from "../../images/header__logo.svg";
 
 import Navigation from "../../components/Navigation/Navigation";
 
-import { useState } from "react";
 
 function Header({ isLoggedIn }) {
   const [isSidebarOpened, setSidebarOpened] = useState(false);
@@ -19,13 +21,13 @@ function Header({ isLoggedIn }) {
   return (
     <header className="header">
       
-      <a href="/">
+      <Link to="/">
         <img
           className="header__logo"
           src={logo}
           alt="logo"
         />
-      </a>
+      </Link>
 
       {isLoggedIn && <Navigation 
         isOpened={isSidebarOpened}
@@ -34,17 +36,15 @@ function Header({ isLoggedIn }) {
       />}
       
       
-      <a
-        href="/signup"
+      <Link to="/signup"
         className={`${isLoggedIn ? "header__item-one_hidden" : "header__item-one"}`}>
         Регистрация
-      </a>
+      </Link>
       
-      <a
-        href="/signin"
+      <Link to="/signin"
         className={`${isLoggedIn ? "header__button-signin_hidden" : "header__button-signin"}`}>
         Войти
-      </a>
+      </Link>
     </header> 
   )
 }

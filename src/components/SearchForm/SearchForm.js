@@ -1,7 +1,11 @@
 import { React } from "react";
+import { useLocation } from 'react-router-dom';
+
 import "./SearchForm.css";
 
 function SearchForm(props) {  
+  const location = useLocation();
+  let searchInput;
  
   function handleInput(e) {
     props.setSearchInput(e.target.value);
@@ -17,10 +21,12 @@ function SearchForm(props) {
       
     } else {
       props.setErrorMessage("");
-      props.handleFilter(props.arrayForSearching);
+      props.handleFilter();
     }
   }
 
+ location.pathname === "/movies" ? searchInput = JSON.parse(localStorage.getItem("searchInput")) : searchInput = ""
+  
   return (
     <div className="search-form__wrapper" >
 
@@ -34,8 +40,11 @@ function SearchForm(props) {
         
         <input
           onChange={handleInput}
-          required
           
+          defaultValue={searchInput}
+          
+          required
+          type="text"
           placeholder="Фильм"
           className="search-form__input"
           name="name"

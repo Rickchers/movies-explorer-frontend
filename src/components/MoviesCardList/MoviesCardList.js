@@ -15,8 +15,9 @@ function MoviesCardList(props) {
           
           {(props.filmsToRender) && props.filmsToRender.slice(0, props.total).map((movieCard, i) => {
             
+            //console.log(movieCard._id);
             return (
-              <li key={i} className="moviescardlist__list">
+              <li key={movieCard.id || movieCard._id} className="moviescardlist__list">
                 
                   <MoviesCard               
                     //все карты

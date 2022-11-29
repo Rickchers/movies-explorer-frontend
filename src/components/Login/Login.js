@@ -22,13 +22,13 @@ function Login(props) {
   return (
     <section className="login__wrapper">
       
-      <a href="/">
+      <Link to="/">
         <img
           className="login__logo"
           src={logo}
           alt="logo"
         />
-      </a>
+      </Link>
       <h3 className="login__title">Рады видеть!</h3>
       
       <form

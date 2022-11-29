@@ -1,3 +1,6 @@
+import { React } from "react";
+import { Link } from "react-router-dom";
+
 import "./Navigation.css";
 import accaunt from "../../images/accaunt.svg";
 import pie from "../../images/pie.svg";
@@ -21,12 +24,12 @@ function Navigation(props) {
             alt="кнопка закрыть навигационную панель"
           />
         </button>
-        <a href="/" className={`${props.isOpened ? "nav__menu" : "nav__menu_hided"}`}>Главная</a>
-        <a href="/movies" className="nav__menu">Фильмы</a>
-        <a href="/saved-movies" className="nav__menu">Сохранённые фильмы</a>
+        <Link to="/" className={`${props.isOpened ? "nav__menu" : "nav__menu_hided"}`}>Главная</Link>
+        <Link to="/movies" className="nav__menu">Фильмы</Link>
+        <Link to="/saved-movies" className="nav__menu">Сохранённые фильмы</Link>
 
         <div className="nav__accaunt-title">
-          <a href="/profile" className="nav__menu">Аккаунт</a>
+          <Link to="/profile" className="nav__menu">Аккаунт</Link>
           <img
           className="nav__image"
           src={accaunt}
@@ -37,7 +40,6 @@ function Navigation(props) {
       <button type="button" className="nav__pie">
         <img
           onClick={props.onClickPie}      
-          //className="nav__pie"
           src={pie}
           alt="кнопка скрыть/показать навигационную панель"
         />
