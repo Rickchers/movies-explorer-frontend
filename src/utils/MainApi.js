@@ -1,5 +1,5 @@
-export const BASE_URL = "http://localhost:3001";
-//export const BASE_URL = "https://api.rickchers.diplom.nomorepartiesxyz.ru";
+//export const BASE_URL = "http://localhost:3001";
+export const BASE_URL = "https://api.rickchers.diplom.nomorepartiesxyz.ru";
 //аутентификация пользователя (регистрация)
 export const register = (name, email, password) => {
   
@@ -146,10 +146,7 @@ export const saveMovie = ({
       "duration": duration,
       "year": year,
       "description": description,
-
       "image": {"url": image.url},
-     
-
       "trailerLink": trailerLink,
       "thumbnail": "https://api.nomoreparties.co/",
       "movieId": id,

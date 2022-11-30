@@ -137,3 +137,16 @@
     
   // }
 //----------------------------------------------------
+
+  // function handleChange() {
+  //   if(isLiked){
+      
+  //     props.onDelMovie(props.movieCard);
+
+  //   }else if(!isLiked){
+      
+  //     props.onAddMovie(props.movieCard);
+
+  //   }
+  //   setIsLiked(!isLiked);
+  // }

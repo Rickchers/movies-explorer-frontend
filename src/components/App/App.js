@@ -72,6 +72,8 @@ function App() {
 
 
   const history = useHistory();
+
+  
   
   //сообщение ничего не найдено
   const [errorMessage, setErrorMessage] = useState("");
@@ -163,6 +165,7 @@ function App() {
     localStorage.removeItem("checkbox-value");
     localStorage.removeItem("filteredBeatFilms");
     localStorage.removeItem("searchInput");
+    localStorage.removeItem("allFilms");
     setLoggedIn(false);
     history.push("/");    
   }
@@ -199,13 +202,27 @@ function App() {
     setFilmsToRenderInSavedFilms(savedFilms);
   }, [savedFilms])
 
+  //----------------------------------------------------------------------------------------------
+
+  function drop(movieCard, isLiked, setIsLiked) {
+    
+    if(isLiked){
+      
+      deleteMovie(movieCard, isLiked, setIsLiked);
+
+    }else if(!isLiked){
+      
+      addMovie(movieCard, isLiked, setIsLiked);
+    }
+    
+  }
+
   //сохранить карточку в базе
-  function addMovie(movieCard) {
+  function addMovie(movieCard, isLiked, setIsLiked) {
     mainApi
       .saveMovie(movieCard)
       .then((newMovieCard) => {
-        setSavedFilms([...savedFilms, newMovieCard]);
-        
+        setSavedFilms([...savedFilms, newMovieCard]);        
       })
       .then(console.log(savedFilms))
       .catch((err) => {
@@ -213,19 +230,20 @@ function App() {
           handleSignOut();
         }; 
         console.log(err);
-      });     
+      });    
   }
   
-  //удалить карточку из базы
+  //найти карточку по id
   function findCardId(c){
     const findedCard = savedFilms.find((item) => item.movieId === c.id);
     return findedCard;
   }
-
-  function deleteMovie(movieCard) {  
+  //удалить карточку из базы
+  function deleteMovie(movieCard, isLiked, setIsLiked) {  
     mainApi
       .deleteMovie(findCardId(movieCard)._id)
       .then(res => setSavedFilms(savedFilms.filter((item) => item._id !== res._id)))
+      .then(setIsLiked(!isLiked))
       .catch((err) => console.log(err));
   }
 
@@ -317,7 +335,10 @@ function App() {
   function filterSearch(films) {
     if(isShorts){
       const newList = films.filter((movie) => {return movie.duration < SHORTS_DURATION;});
-      if (newList.length === 0) {setErrorMessage("Ничего не найдено")};  
+      if (newList.length === 0 && newList !== false) {
+        
+        setErrorMessage("Ничего не найдено")
+      };  
       setFilmsToRenderInFilms(newList);
       localStorage.setItem("checkbox-value", "checked");
     } else if (!isShorts) {
@@ -328,7 +349,7 @@ function App() {
   }
 
   useEffect(()=>{
-    filterSearch(JSON.parse(localStorage.getItem("filteredBeatFilms")));
+    filterSearch(JSON.parse(localStorage.getItem("filteredBeatFilms")) || false);
   }, [isShorts])
 
 
@@ -427,6 +448,10 @@ function App() {
               setErrorMessage={setErrorMessage}
               
               savedFilms = {savedFilms}
+
+              drop={drop}
+
+
             /> 
 
             <ProtectedRoute
@@ -451,6 +476,8 @@ function App() {
               arrayForSearching={savedFilms}
               errorMessage={errorMessage}
               setErrorMessage={setErrorMessage}
+
+
             />
 
             <ProtectedRoute

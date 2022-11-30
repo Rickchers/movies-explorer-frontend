@@ -32,6 +32,8 @@ function MoviesCardList(props) {
                     onDelMovie={props.onDelMovie}
                     
                     onDelFromSaved={props.onDelFromSaved}
+
+                    drop={props.drop}
                     
                   />                
                </li>

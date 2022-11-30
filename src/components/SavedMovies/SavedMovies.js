@@ -38,6 +38,7 @@ function SavedMovies(props) {
         savedFilms = {props.savedFilms}
         
         onDelFromSaved={props.onDelFromSaved}
+
       />
       <Footer />    
     </main>

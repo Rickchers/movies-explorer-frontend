@@ -69,11 +69,9 @@ function Movies(props) {
             cards={props.cards}
             savedFilms = {props.savedFilms}
 
-            handleTotal={props.handleTotal}
-
+            handleTotal={props.handleTotal}   
             
-
-           
+            drop={props.drop}
             
           />
       </div>
