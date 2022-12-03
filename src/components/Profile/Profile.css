@@ -15,7 +15,7 @@
 }
 
 .profile__form {
-  margin-bottom: 140px;
+  margin-bottom: 160px;
 }
 
 .profile__form-row:first-child {
@@ -26,7 +26,7 @@
 .profile__form-row {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 0px;
+  padding-bottom: 15px;
 }
 
 .profile__input {

@@ -62,9 +62,28 @@
   background-color: #2f2f2f;
 }
 
+.login__error-wrapper {
+  padding-top: 5px;
+  height: 12px;
+}
+
+.login__error-message {
+  font-size: 10px;
+  line-height: 12px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  margin: -10px 0;
+  color: #EE3465;
+}
+
+.login__error-message_hidden {
+  display: none;
+}
+
 .login__button {
   all: unset;
-  margin: 159px 0 16px;
+  margin: 156px 0 16px;
   
   font-size: 14px;
   line-height: 17px;

@@ -40,6 +40,23 @@
   font-weight: 500;
 }
 
+.search-form__submit-button_disabled {
+  all: unset;
+  width: 100px;
+  height: 52px;
+  border-radius: 3px;
+  
+  margin-right: 10px;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 12px;
+  line-height: 16px;
+  font-style: normal;
+  font-weight: 500;
+  background-color: #505050;
+  
+}
+
 .search-form__submit-button:hover {
   background-color: #2074ff;
   cursor: pointer;

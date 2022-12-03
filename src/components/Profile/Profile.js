@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import Header from "../Header/Header";
 
@@ -8,22 +8,23 @@ import "./Profile.css";
 import useInput from "../../hooks/useInput.js"
 
 function Profile(props) {
-  const currentUser = React.useContext(CurrentUserContext);
   
-  const userName = useInput("", {isEmpty: true, minLength: 2, isName: true});
-  const email = useInput("", {isEmpty: true, minLength: 3, isEmail: true});
+  const currentUser = useContext(CurrentUserContext);
+  //console.log(currentUser);
+  const userName = useInput(currentUser.name, {isEmpty: true, minLength: 2, isName: true});
+  const email = useInput(currentUser.email, {isEmpty: true, minLength: 3, isEmail: true});
 
   useEffect(() => {
     props.setSuccesProfileEditMessage("");
   }, []);
 
   //устанавливаем значения имени пользователя и емэйла из currentUser в поля формы редактирования профиля
-  useEffect(() => {
-    if (currentUser) {
-      userName.resetForm(currentUser.name);
-      email.resetForm(currentUser.email);
-    }
-  }, [currentUser]);  
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     userName.resetForm(currentUser.name);
+  //     email.resetForm(currentUser.email);
+  //   }
+  // }, [currentUser]);  
 
   function handleSubmit(e){
     e.preventDefault();
@@ -44,7 +45,7 @@ function Profile(props) {
       />
       <section className="profile__wrapper">
         
-        {currentUser.name && <h3 className="profile__title">{`Привет, ${currentUser.name}`}</h3>}
+        {currentUser.name && <h3 className="profile__title">{`Привет, ${currentUser.name}!`}</h3>}
         
         <form
           noValidate

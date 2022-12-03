@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
@@ -8,7 +8,11 @@ import Footer from "../Footer/Footer";
 import "./SavedMovies.css";
 
 function SavedMovies(props) {
-  
+
+  useEffect(()=>{
+    props.setInitialState();
+  },[])
+ 
   return (
     
     <main className="savedmovies__wrapper">
@@ -19,7 +23,8 @@ function SavedMovies(props) {
         onClickShortsButton={props.onClickShortsButton}
         shortsButtonActive={props.shortsButtonActive}
 
-        onSearch={props.onSearch}
+        //onSearch={props.onSearch}
+
         setSearchInput={props.setSearchInput}
         searchInput={props.searchInput}
 
@@ -27,10 +32,10 @@ function SavedMovies(props) {
         handleFilter={props.handleFilter}
         filmsToRender={props.filmsToRender}
 
-        //
-        arrayForSearching={props.arrayForSearching}
         errorMessage={props.errorMessage}
         setErrorMessage={props.setErrorMessage}
+
+        isSearchButtonDisabled={props.isSearchButtonDisabled}
       />
       
       <MoviesCardList

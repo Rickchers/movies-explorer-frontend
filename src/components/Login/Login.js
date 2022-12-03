@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Login.css";
 import logo from "../../images/header__logo.svg";
 import { Link } from "react-router-dom";
@@ -7,6 +7,10 @@ import { Link } from "react-router-dom";
 import useInput from "../../hooks/useInput.js"
 
 function Login(props) {
+  useEffect(()=>{
+    props.setLoginError(false);
+  },[])
+
   const email = useInput("", {isEmpty: true, minLength: 3, isEmail: true,});
   const password = useInput("", {isEmpty: true, minLength: 2, maxLength: 200});
   
@@ -66,6 +70,10 @@ function Login(props) {
         />
         
         {myPasswordDiv}
+
+        <div className="login__error-wrapper">
+          <p className={props.loginError ? "login__error-message" : "login__error-message_hidden"}>Введенные данные неверны</p>
+        </div>
         
         <button
           disabled={!email.inputValid || !password.inputValid}

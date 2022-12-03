@@ -16,8 +16,7 @@ function SearchForm(props) {
     
     if (props.searchInput.length === 0) {
       
-      props.setErrorMessage("Нужно ввести ключевое слово")
-      
+      props.setErrorMessage("Нужно ввести ключевое слово");      
       
     } else {
       props.setErrorMessage("");
@@ -42,7 +41,7 @@ function SearchForm(props) {
           onChange={handleInput}
           
           defaultValue={searchInput}
-          
+          disabled={props.isSearchButtonDisabled}
           required
           type="text"
           placeholder="Фильм"
@@ -53,8 +52,9 @@ function SearchForm(props) {
         />
 
         <button
+          disabled={props.isSearchButtonDisabled}
           type="submit"
-          className="search-form__submit-button">
+          className={`${props.isSearchButtonDisabled ? "search-form__submit-button_disabled" : "search-form__submit-button"}`}>
           Поиск          
         </button>
 

@@ -24,7 +24,8 @@ function Movies(props) {
         onClickShortsButton={props.onClickShortsButton}
         shortsButtonActive={props.shortsButtonActive}
 
-        onSearch={props.onSearch}
+        //onSearch={props.onSearch}
+
         setSearchInput={props.setSearchInput}
         searchInput={props.searchInput}
 
