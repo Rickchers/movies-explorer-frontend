@@ -69,7 +69,7 @@ function App() {
   };
 
 //----------------------------------------------------------------------
-
+  const [allFilms, setAllfilms] = useState([]);
 
   const history = useHistory(); 
   
@@ -228,26 +228,7 @@ function App() {
   }
   //---------------------------------------------------
 
-  //---------------------------------------------------
-  
-  /*
-  // получаем результаты поискового запроса, сохраненные в локальном хранилище
-  useEffect(() => {
-    const localStorageMovies = JSON.parse(localStorage.getItem("filteredBeatFilms"));
-    console.log(localStorageMovies);
-    
-    if(isShorts){
-      
-      const newList = JSON.parse(localStorage.getItem("filteredBeatFilms")).filter(movie => movie.duration < SHORTS_DURATION);      
-      setFilmsToRenderInFilms(newList);
-      
-    }else{
-      
-      setFilmsToRenderInFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
-    }
-    
-  }, []);
-  */
+  //--------------------------------------------------- 
     
   //получаем массив сохраненных фильмов  
   useEffect(() => {
@@ -319,10 +300,10 @@ function App() {
     
     if(!isShortsSaved){
       setFilmsToRenderInSavedFilms(savedFilms)
-      //filterSearchSaved(savedFilms)
+      
     }else{
       filterSearchSaved(filmsToRenderInSavedFilms);
-      //setFilmsToRenderInSavedFilms(savedFilms)
+     
     }
 
   }, [isShortsSaved])
@@ -331,15 +312,20 @@ function App() {
 
   //---------------------------------MOVIES-----------------------------------------------
 
-  //функция обработки инпута поискового запроса
+  //изменение состояния переключателя короткометражек
+  function handleShorts() {
+    localStorage.setItem('checkbox-value', JSON.stringify(!isShorts));    
+    setShorts(!isShorts);
+  }  
+
   function handleMoviesFilter() {
 
     //получаем карточки с сервера при первом обращении и сохраняем их в локальном хранилище
-    if(localStorage.getItem("allFilms") === null) {
+    if(allFilms.length === 0) {
       setLoading(true);
       moviesApi.getMovies()
       .then((res) => {
-        localStorage.setItem("allFilms", JSON.stringify(res));        
+        setAllfilms(res);        
         filterSearch(findMovieInFilms(res));
       })
       .catch((err) => {
@@ -350,7 +336,7 @@ function App() {
       }
       )
     } else {
-      filterSearch(findMovieInFilms(JSON.parse(localStorage.getItem("allFilms"))));
+      filterSearch(findMovieInFilms(allFilms));
     }    
   }
   
@@ -362,47 +348,36 @@ function App() {
       const movieNameRU = movie.nameRU.toLowerCase().trim();
       return movieNameRU.indexOf(inputLowerCase) > -1
     });    
-    localStorage.setItem("searchInput", JSON.stringify(searchInput));      
-    //localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
-    //filterSearch(searchResult);
+    localStorage.setItem("searchInput", JSON.stringify(searchInput));
     return searchResult;
   }
 
-  //изменение состояния переключателя короткометражек
-  function handleShorts() {
-    localStorage.setItem('checkbox-value', JSON.stringify(!isShorts));    
-    setShorts(!isShorts);
-  }
-
   function filterSearch(films) {
-
-    //films.length !== 0 ? setErrorMessage("") : setErrorMessage ("Ничего не найдено");
-
+    
     if(isShorts){
+      
       const newList = films.filter((movie) => {return movie.duration < SHORTS_DURATION;});
-      if (newList.length === 0 && newList !== false) {
-        
-        setErrorMessage("Ничего не найдено")
-      };  
-      //setFilmsToRenderInFilms(newList);
-      localStorage.setItem("filteredBeatFilms", JSON.stringify(newList));
+      if (newList.length === 0 && newList !== false) {        
+        //setErrorMessage("Ничего не найдено")
+      };
+      localStorage.setItem("filteredtBeatFilms", JSON.stringify(newList));
+      setFilmsToRenderInFilms(JSON.parse(localStorage.getItem("filteredtBeatFilms")));
       
     } else if (!isShorts) {
-
       if (films.length !== 0) {setErrorMessage("")} else {setErrorMessage ("Ничего не найдено")}
-      //setFilmsToRenderInFilms(films);
-      localStorage.setItem("filteredBeatFilms", JSON.stringify(films));
+      localStorage.setItem("filteredtBeatFilms", JSON.stringify(films));
+      setFilmsToRenderInFilms(JSON.parse(localStorage.getItem("filteredtBeatFilms")));
     }
+    
+    
   }
 
-  useEffect(()=>{
-    if(!isShorts) {
-      setErrorMessage("");
-      setFilmsToRenderInFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")) || false);
-    }else{
-      filterSearch(filmsToRenderInFilms);
-    }
-  }, [isShorts]);
+  // получаем результаты поискового запроса, сохраненные в локальном хранилище
+  useEffect(() => {
+      
+      setFilmsToRenderInFilms(JSON.parse(localStorage.getItem("filteredtBeatFilms")));
+      
+  }, []);
 
 
   //---------------------------------------------------------------------------------------
@@ -499,7 +474,7 @@ function App() {
               setSearchInput={setSearchInput}
               searchInput={searchInput}
               
-              filmsToRender={JSON.parse(localStorage.getItem("filteredBeatFilms"))}
+              filmsToRender={filmsToRenderInFilms}
               
               errorMessage={errorMessage}
               setErrorMessage={setErrorMessage}
