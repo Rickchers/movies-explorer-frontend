@@ -154,7 +154,8 @@ function App() {
     localStorage.removeItem("filteredBeatFilms");
     localStorage.removeItem("searchInput");
     localStorage.removeItem("allFilms");
-
+    
+    setFilmsToRenderInFilms([]);  
     setCurrentUser({});
     setSavedFilms([]);
     setSearchInput("");
@@ -228,10 +229,14 @@ function App() {
   //---------------------------------------------------
 
   //---------------------------------------------------
-
+  
+  /*
   // получаем результаты поискового запроса, сохраненные в локальном хранилище
   useEffect(() => {
-    if(localStorage.getItem("filteredBeatFilms") && isShorts){
+    const localStorageMovies = JSON.parse(localStorage.getItem("filteredBeatFilms"));
+    console.log(localStorageMovies);
+    
+    if(isShorts){
       
       const newList = JSON.parse(localStorage.getItem("filteredBeatFilms")).filter(movie => movie.duration < SHORTS_DURATION);      
       setFilmsToRenderInFilms(newList);
@@ -240,7 +245,9 @@ function App() {
       
       setFilmsToRenderInFilms(JSON.parse(localStorage.getItem("filteredBeatFilms")));
     }
+    
   }, []);
+  */
     
   //получаем массив сохраненных фильмов  
   useEffect(() => {
@@ -356,7 +363,7 @@ function App() {
       return movieNameRU.indexOf(inputLowerCase) > -1
     });    
     localStorage.setItem("searchInput", JSON.stringify(searchInput));      
-    localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
+    //localStorage.setItem("filteredBeatFilms", JSON.stringify(searchResult));
     //filterSearch(searchResult);
     return searchResult;
   }
@@ -377,12 +384,14 @@ function App() {
         
         setErrorMessage("Ничего не найдено")
       };  
-      setFilmsToRenderInFilms(newList);
+      //setFilmsToRenderInFilms(newList);
+      localStorage.setItem("filteredBeatFilms", JSON.stringify(newList));
       
     } else if (!isShorts) {
 
       if (films.length !== 0) {setErrorMessage("")} else {setErrorMessage ("Ничего не найдено")}
-      setFilmsToRenderInFilms(films);
+      //setFilmsToRenderInFilms(films);
+      localStorage.setItem("filteredBeatFilms", JSON.stringify(films));
     }
   }
 
@@ -393,8 +402,6 @@ function App() {
     }else{
       filterSearch(filmsToRenderInFilms);
     }
-
-    //filterSearch(JSON.parse(localStorage.getItem("filteredBeatFilms")) || false);
   }, [isShorts]);
 
 
@@ -491,12 +498,9 @@ function App() {
               
               setSearchInput={setSearchInput}
               searchInput={searchInput}
-
-              //
-              //arrayForSearching={cards}
-              //filmsToRender={filteredBeatFilms}
               
-              filmsToRender={filmsToRenderInFilms}
+              filmsToRender={JSON.parse(localStorage.getItem("filteredBeatFilms"))}
+              
               errorMessage={errorMessage}
               setErrorMessage={setErrorMessage}
               
