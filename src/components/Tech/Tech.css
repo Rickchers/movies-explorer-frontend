@@ -1,0 +1,129 @@
+.tech {
+  background-color: #272727;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  padding: 100px 70px;
+  box-sizing: border-box;
+}
+
+.tech__title {
+  width: 100%;
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  text-align: left;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #DADADA;
+  letter-spacing: -0.04em;
+}
+
+.list {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,84px);
+  grid-gap: 10px;
+  gap: 10px;
+  justify-content: space-between;
+  margin: 100px 0 0;
+  max-width: 690px;
+  padding: 0;
+  width: 100%;
+  list-style: none;
+}
+
+.list__row {
+  border-radius: 10px;
+  background-color: #303030;
+}
+
+.list__row:last-child {
+  margin-right: 0;
+}
+
+.list__text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  margin: 20px 0 20px;
+}
+
+.list__heading {
+  box-sizing: border-box;
+  margin: 90px 0 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: center;
+  letter-spacing: -0.04em;
+}
+
+.list__subheading {
+  box-sizing: border-box;
+  margin: 26px auto 0;
+  max-width: 460px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 768px) {
+  .tech  {
+    padding: 100px 50px;
+  }
+  .list__heading {
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    margin-top: 80px;
+  }
+  .list__subheading {
+    font-size: 12px;
+    line-height: 18px;
+    margin-top: 21px;
+  }
+  .list {
+    margin: 84px 0 0;
+  }
+  .list__text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .tech  {
+    padding: 60px 18px;
+    background-color: #202020;
+  }
+
+  .tech__title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .list__heading {
+    margin-top: 64px;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .list__subheading {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .list {
+    margin: 50px 0 10px;
+    padding: 0 52px;
+    gap: 12px;
+  }
+}

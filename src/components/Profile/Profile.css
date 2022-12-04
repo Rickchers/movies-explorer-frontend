@@ -1,0 +1,101 @@
+.profile__wrapper {
+  width: 410px;
+  padding-top: 74px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.profile__title {
+  text-align: center;
+  font-size: 24px;
+  line-height: 29px;
+  font-style: normal;
+  font-weight: 500;
+  margin: 0 0 123px;
+}
+
+.profile__form {
+  margin-bottom: 160px;
+}
+
+.profile__form-row:first-child {
+  border-bottom: 1px solid #424242;
+  margin-bottom: 0px;
+}
+
+.profile__form-row {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 15px;
+}
+
+.profile__input {
+  all: unset;
+
+  font-size: 11px;
+  line-height: 13px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: right;
+
+  box-sizing: border-box;
+  color: #FFFFFF;
+  background-color: #202020;
+}
+
+.profile__input-title {
+  font-size: 11px;
+  line-height: 13px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+}
+
+.profile__changed-wrapper {
+  height: 30px;
+}
+
+.profile__changed {
+  margin: 0;
+  margin-bottom: 80px;
+  font-size: 12px;
+  line-height: 13px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.profile__edit-button {
+  all: unset;
+  font-size: 13px;
+  line-height: 16px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  color: #404040;
+}
+
+.profile__edit-button_active {
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.profile__edit-button_colored {
+  color: #EE3465;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 320px) {
+  .profile__wrapper {
+    width: 260px;
+  }
+
+  .profile__edit {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
